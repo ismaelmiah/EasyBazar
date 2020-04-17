@@ -30,7 +30,7 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         #region Actions
         public IActionResult Index()
         {
-            return View(_uow.Category.GetAll().ToList());
+            return View();
         }
         #endregion
 
@@ -73,7 +73,7 @@ namespace Easy_Bazar.Areas.Admin.Controllers
             _uow.Save();
             _uow.Category.Remove(deleteData);
             _uow.Save();
-            return RedirectToAction(nameof(Index)); //Json(new { success = true, message = "Delete Operation Successfully" });
+            return Json(new { success = true, message = "Delete Operation Successfully" });
         }
 
         #endregion

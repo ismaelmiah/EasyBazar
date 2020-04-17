@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataSets.Data;
+using DataSets.Interfaces;
+using DataSets.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,10 +29,12 @@ namespace Easy_Bazar
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
             services.AddIdentity<IdentityUser, IdentityRole>()
              .AddDefaultTokenProviders()
              .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.AddMvc();
@@ -43,6 +47,7 @@ namespace Easy_Bazar
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
