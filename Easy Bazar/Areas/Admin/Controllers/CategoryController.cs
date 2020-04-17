@@ -41,16 +41,27 @@ namespace Easy_Bazar.Areas.Admin.Controllers
             return Json(new { data = allObj });
         }
 
-        [HttpGet]
-        public IActionResult Delete(int id)
-        {
-            var deleteData = _uow.Category.Get(id);
-            if (deleteData == null)
-                return Json(new { success = false, message = "Data Not Found!" });
-            return Json(new { success = true, message = "Delete Operation Successfully" });
-        }
+        //[HttpGet]
+        //public IActionResult Delete(int id)
+        //{
+        //    var deleteData = _uow.Category.Get(id);
+        //    if (deleteData == null)
+        //        return Json(new { success = false, message = "Data Not Found!" });
+        //    return Json(new { success = true, message = "Delete Operation Successfully" });
+        //}
 
-        [HttpPost]
+        //[HttpGet]
+        //public IActionResult Delete(int id)
+        //{
+        //    var deleteData = _uow.Category.Get(id);
+        //    if (deleteData == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(deleteData);
+        //}
+
+        [HttpDelete]
         [ActionName("Delete")]
         public IActionResult DeleteData(int id)
         {
