@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using DataSets.Interfaces;
 
 namespace Easy_Bazar.Areas.Identity.Pages.Account
 {
@@ -20,12 +21,14 @@ namespace Easy_Bazar.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IEmailSender _emailSender;
+        private readonly IUnitOfWork _uow;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, 
-            ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+        public LoginModel(SignInManager<IdentityUser> signInManager,ILogger<LoginModel> logger,UserManager<IdentityUser> userManager, IEmailSender emailSender, IUnitOfWork uow)
         {
             _userManager = userManager;
+            _emailSender = emailSender;
+            _uow = uow;
             _signInManager = signInManager;
             _logger = logger;
         }
