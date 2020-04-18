@@ -14,10 +14,12 @@ namespace DataSets.Repository
             _db = db;
             Category = new CategoryRepository(_db);
             Product = new ProductRepository(_db);
+            ApplicationUser = new ApplicationUserRepository(_db);
         }
 
         public ICategory Category { get; private set; }
         public IProduct Product { get; private set; }
+        public IApplicationUser ApplicationUser { get; private set; }
 
         public void Dispose()
         {

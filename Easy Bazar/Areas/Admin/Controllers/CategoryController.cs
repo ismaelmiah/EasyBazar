@@ -104,7 +104,7 @@ namespace Easy_Bazar.Areas.Admin.Controllers
                 //This for Create
                 return View(cat);
             }
-
+            // This for Update
             cat = _uow.Category.Get((int)id);
             if (cat != null)
             {
@@ -126,7 +126,7 @@ namespace Easy_Bazar.Areas.Admin.Controllers
                 if (files.Count > 0)
                 {
                     string fileName = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(webRootPath, @"images\products");
+                    var uploads = Path.Combine(webRootPath, @"images\category");
                     var extenstion = Path.GetExtension(files[0].FileName);
 
                     if (category.ImageURL != null)

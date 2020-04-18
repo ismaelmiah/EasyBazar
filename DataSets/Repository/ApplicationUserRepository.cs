@@ -1,0 +1,21 @@
+﻿using DataSets.Data;
+using DataSets.Entity;
+using DataSets.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace DataSets.Repository
+{
+    public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUser
+    {
+        private readonly ApplicationDbContext _db;
+
+        public ApplicationUserRepository(ApplicationDbContext db)
+            : base(db)
+        {
+            _db = db;
+        }
+
+    }
+}
