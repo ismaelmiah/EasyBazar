@@ -9,6 +9,7 @@ namespace DataSets.Interfaces
         ICategory Category { get; }
         IProduct Product { get; }
         IApplicationUser ApplicationUser { get; }
+        IShoppingCart ShoppingCart { get; }
         void Save();
     }
 }
