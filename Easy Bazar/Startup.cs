@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Stripe;
 
 namespace Easy_Bazar
 {
@@ -52,6 +53,12 @@ namespace Easy_Bazar
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
 
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
         }
 
@@ -70,11 +77,12 @@ namespace Easy_Bazar
                 app.UseHsts();
             }
 
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
-            //app.UseSession();
+            app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
 

@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using DataSets.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Basic Page Needs -->
@@ -139,25 +143,60 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
-                                    <a href="coming-soon.html">PAGE</a>
-                                    <ul class="submenu">
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                        <li><a href="404.html"> Error 404</a></li>
-                                        <li><a href="faqs.html">FAQs</a></li>
-                                    </ul>
+                                @if (User.IsInRole(ProjectConstant.Role_Admin))
+                                {
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Content Managment
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+
+                                            <a class="dropdown-item" asp-area="Admin" asp-controller="CoverType" asp-action="Index">Cover Type</a>
+
+                                            <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
+
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </li>
+                                }
+
+                                @if (User.IsInRole(ProjectConstant.Role_Employee) || User.IsInRole(ProjectConstant.Role_Admin))
+                                {
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            User / Company
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
+                                            <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">User List</a>
+                                        </div>
+                                    </li>
+                                }
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="Admin" asp-controller="Order" asp-action="Index">Orders</a>
                                 </li>
-                                <li>
-                                    <a href="blog-list.html">BLOG</a>
-                                    <ul class="submenu">
-                                        <li><a href="blog-list.html">Blog List Full</a></li>
-                                        <li><a href="blog-list-1.html">Blog list Slide 1</a></li>
-                                        <li><a href="blog-list-2.html">Blog list Slide 2</a></li>
-                                        <li><a href="blog-grid.html">Blog Gird Full</a></li>
-                                        <li><a href="blog-grid-1.html">Blog Gird Slide</a></li>
-                                        <li><a href="blog-detail.html">Blog Details</a></li>
-                                    </ul><!-- /.submenu -->
-                                </li>
+                                @if (HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart) != null)
+                                {
+                                    <li style="color:white">
+                                        <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link">
+                                            @{
+                                                var count = HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart);
+                                            }
+                                            <i class="fas fa-shopping-cart"> (@count)</i>
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li style="color:white">
+                                        <a href="#" class="nav-link">
+
+                                            <i class="fas fa-shopping-cart"> (0)</i>
+                                        </a>
+                                    </li>
+                                }
                                 <li>
                                     <a href="contact.html">CONTACT</a>
                                     <ul class="submenu right-submenu">
@@ -273,8 +312,11 @@
     </div>
     <!-- Javascript -->
 
-    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+
     <script type="text/javascript" src="~/js/dataTable.min.js"></script>
+    <script type="text/javascript" src="~/js/toastr.min.js"></script>
+    <script type="text/javascript" src="~/js/sweetalert.js"></script>
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="~/js/easing.js"></script>
     <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="~/js/jquery.mycart.js"></script>
@@ -283,8 +325,6 @@
     <script type="text/javascript" src="~/js/move-top.js"></script>
     <script type="text/javascript" src="~/js/order.js"></script>
     <script type="text/javascript" src="~/js/qrcode.js"></script>
-    <script type="text/javascript" src="~/js/sweetalert.js"></script>
-    <script type="text/javascript" src="~/js/toastr.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
@@ -326,10 +366,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <!-- Scripts add for DataTables-->
-
-    <script type="text/javascript" src="~/js/dataTable.min.js"></script>
-    <script type="text/javascript" src="~/js/toastr.min.js"></script>
-    <script type="text/javascript" src="~/js/sweetalert.js"></script>
 
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>

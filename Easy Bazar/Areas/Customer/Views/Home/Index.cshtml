@@ -271,13 +271,14 @@
                         New Product
                     </h2>
                 </div>
+                @*@Url.Action("Products","Home", new {Area = "Customer"});*@
                 <div class="product-content product-fourcolumn clearfix">
                     <ul class="product style2 clearfix">
-                        @foreach (var item in Model.Products)
+                        @foreach (var item in Model.Featured4Products)
                         {
                             <li class="product-item">
                                 <div class="product-thumb clearfix">
-                                    <a href="#" class="product-thumb">
+                                    <a asp-action="Details" asp-route-id="@item.ID" class="product-thumb">
                                         <img src="@item.ImageURL" alt="image">
                                     </a>
                                     <span class="new">New</span>
@@ -302,7 +303,7 @@
                                     </ul>
                                 </div>
                                 <div class="add-to-cart text-center">
-                                    <a href="#">ADD TO CART</a>
+                                    <a asp-action="Details" asp-route-id="@item.ID">ADD TO CART</a>
                                 </div>
                                 <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
                             </li>
