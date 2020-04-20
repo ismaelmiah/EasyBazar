@@ -142,7 +142,7 @@ namespace Easy_Bazar.Areas.Admin.Controllers
                     {
                         files[0].CopyTo(fileStreams);
                     }
-                    category.ImageURL = @"\images\products\" + fileName + extenstion;
+                    category.ImageURL = @"\images\category\" + fileName + extenstion;
                 }
                 else
                 {
