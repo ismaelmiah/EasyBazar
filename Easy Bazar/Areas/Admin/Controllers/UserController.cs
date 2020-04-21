@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataSets.Data;
+using DataSets.Utility;
+using Easy_Bazar.Areas.Identity.Pages.Account;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Easy_Bazar.Areas.Admin.Controllers
 {
@@ -14,12 +19,17 @@ namespace Easy_Bazar.Areas.Admin.Controllers
     {
         #region Variables
         private readonly ApplicationDbContext _db;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly ILogger<LogoutModel> _logger;
+
         #endregion
 
         #region CTOR
-        public UserController(ApplicationDbContext db)
+        public UserController(ApplicationDbContext db, SignInManager<IdentityUser> signInManager, ILogger<LogoutModel> logger)
         {
             _db = db;
+            _signInManager = signInManager;
+            _logger = logger;
         }
         #endregion
 
@@ -29,6 +39,16 @@ namespace Easy_Bazar.Areas.Admin.Controllers
             return View();
         }
         #endregion
+
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            HttpContext.Session.SetInt32(ProjectConstant.shoppingCart, 0);
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("User logged out.");
+            return Redirect("/Customer/Home");
+        }
+
 
         #region API CALLS
         public IActionResult GetAll()

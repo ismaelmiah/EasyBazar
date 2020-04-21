@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataSets.Utility;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -21,13 +23,10 @@ namespace Easy_Bazar.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
         }
-
-        public void OnGet()
-        {
-        }
-
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
+
+            HttpContext.Session.SetInt32(ProjectConstant.shoppingCart, 0);
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)

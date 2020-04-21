@@ -49,7 +49,7 @@ namespace Easy_Bazar
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = $"/Identity/Account/Login";
-                options.LogoutPath = $"/Identity/Account/Logout";
+                options.LogoutPath = $"/Admin/User/Logout";
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
 

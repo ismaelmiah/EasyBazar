@@ -68,7 +68,7 @@
             <header id="header" class="header header-container clearfix">
                 <div class="container clearfix" id="site-header-inner">
                     <div id="logo" class="logo float-left">
-                        <a href="index.html" title="logo">
+                        <a asp-action="Index" asp-area="Customer" asp-controller="Home" title="logo">
                             <img src="~/images/logo.png" alt="image" width="107" height="24" data-retina="~/images/logo@2x.png" data-width="107" data-height="24">
                         </a>
                     </div><!-- /.logo -->
@@ -81,23 +81,58 @@
                                 <button type="submit" class="header-search-submit" title="Search">Search</button>
                             </form>
                         </li>
-                        <li class="box-login">
-                            <a class="icon_login" href="#"></a>
-                        </li>
-                        <li class="box-cart nav-top-cart-wrapper">
-                            <a class="icon_cart nav-cart-trigger active" href="#"><span>3</span></a>
-                            <div class="nav-shop-cart">
-                                <div class="widget_shopping_cart_content">
-                                    <div class="woocommerce-min-cart-wrap">
-                                        <ul class="woocommerce-mini-cart cart_list product_list_widget ">
-                                            <li class="woocommerce-mini-cart-item mini_cart_item">
-                                                <span>No Items in Shopping Cart</span>
-                                            </li>
-                                        </ul>
-                                    </div><!-- /.widget_shopping_cart_content -->
-                                </div>
-                            </div><!-- /.nav-shop-cart -->
-                        </li>
+
+                        @if (User.IsInRole(ProjectConstant.Role_Admin))
+                        {
+                            <li class="box-login dropdown">
+                                <a class="icon_login dropdown-toggle" data-toggle="dropdown">
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="User" asp-action="Logout">Logout</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Identity" asp-page="/Account/Register">Register</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="box-login dropdown">
+                                <a class="icon_login dropdown-toggle" data-toggle="dropdown">
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Identity" asp-page="/Account/Register">Register</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+
+                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart) != null)
+                        {
+                            <li class="box-cart nav-top-cart-wrapper">
+                                <a class="icon_cart nav-cart-trigger active" asp-area="Customer" asp-controller="Cart" asp-action="Index">
+                                    @{
+                                        var count = HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart);
+                                    }
+                                    <span>@count</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+
+                            <li class="box-cart nav-top-cart-wrapper">
+                                <a class="icon_cart nav-cart-trigger active" asp-area="Customer" asp-controller="Cart" asp-action="Index">
+                                    <span></span>
+                                </a>
+                            </li>
+                        }
                     </ul><!-- /.menu-extra -->
                     <div class="nav-wrap">
                         <nav id="mainnav" class="mainnav">
@@ -177,26 +212,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-white" asp-area="Admin" asp-controller="Order" asp-action="Index">Orders</a>
                                 </li>
-                                @if (HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart) != null)
-                                {
-                                    <li style="color:white">
-                                        <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link">
-                                            @{
-                                                var count = HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart);
-                                            }
-                                            <i class="fas fa-shopping-cart"> (@count)</i>
-                                        </a>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li style="color:white">
-                                        <a href="#" class="nav-link">
-
-                                            <i class="fas fa-shopping-cart"> (0)</i>
-                                        </a>
-                                    </li>
-                                }
+                                
                                 <li>
                                     <a href="contact.html">CONTACT</a>
                                     <ul class="submenu right-submenu">
