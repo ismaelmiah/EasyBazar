@@ -14,7 +14,6 @@ using Microsoft.Extensions.Logging;
 namespace Easy_Bazar.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         #region Variables
@@ -34,6 +33,8 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         #endregion
 
         #region Actions
+        [Authorize(Roles = "Admin")]
+
         public IActionResult Index()
         {
             return View();
@@ -46,11 +47,13 @@ namespace Easy_Bazar.Areas.Admin.Controllers
             HttpContext.Session.SetInt32(ProjectConstant.shoppingCart, 0);
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            return Redirect("/Customer/Home");
+            return RedirectToAction("Index", "Home", new { area = "Customer"});
         }
 
 
         #region API CALLS
+        [Authorize(Roles = "Admin")]
+
         public IActionResult GetAll()
         {
             var userList = _db.ApplicationUsers.ToList();
@@ -66,6 +69,8 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+
         public IActionResult LockUnlock([FromBody] string id)
         {
             var data = _db.ApplicationUsers.FirstOrDefault(u => u.Id == id);
