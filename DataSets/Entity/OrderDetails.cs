@@ -21,7 +21,7 @@ namespace DataSets.Entity
         public int ProductId { get; set; }
 
         [ForeignKey("ProductId ")]
-        public Product ProductEntity { get; set; }
+        public Product Product { get; set; }
         public int Count { get; set; }
         public double Price { get; set; }
     }

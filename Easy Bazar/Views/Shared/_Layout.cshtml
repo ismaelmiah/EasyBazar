@@ -43,12 +43,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="~/css/site.css" />
 
-
     <![endif]-->
     <!-- CSS add for DataTables-->
+
+
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+
     <link rel="stylesheet" type="text/css" href="~/css/dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="~/css/toastr.min.css" />
     <link rel="stylesheet" type="text/css" href="~/css/font-awesome.css" />
@@ -179,11 +182,11 @@
                                         </li>
                                     </ul>
                                 </li>
-                                
+
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">Orders</a>
                                 </li>
-                                
+
                                 <li>
                                     <a href="contact.html">CONTACT</a>
                                     <ul class="submenu right-submenu">
@@ -299,7 +302,7 @@
     </div>
     <!-- Javascript -->
 
-
+    <script type="text/javascript" src="~/fonts/all.min.js"></script>
     <script type="text/javascript" src="~/js/dataTable.min.js"></script>
     <script type="text/javascript" src="~/js/toastr.min.js"></script>
     <script type="text/javascript" src="~/js/sweetalert.js"></script>
@@ -312,8 +315,6 @@
     <script type="text/javascript" src="~/js/move-top.js"></script>
     <script type="text/javascript" src="~/js/order.js"></script>
     <script type="text/javascript" src="~/js/qrcode.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
 
     <script src="~/javascript/tether.min.js"></script>
     <script src="~/javascript/jquery.easing.js"></script>
@@ -350,14 +351,17 @@
     <script src="~/rev-slider/js/extensions/revolution.extension.slideanims.min.js"></script>
     <script src="~/rev-slider/js/extensions/revolution.extension.video.min.js"></script>
 
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <!-- Scripts add for DataTables-->
+    <!-- Scripts add for DataTables
 
+    -->
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>
