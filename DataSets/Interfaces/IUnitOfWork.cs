@@ -10,6 +10,8 @@ namespace DataSets.Interfaces
         IProduct Product { get; }
         IApplicationUser ApplicationUser { get; }
         IShoppingCart ShoppingCart { get; }
+        IOrderDetails OrderDetails { get; }
+        IOrderHeader OrderHeader { get; }
         void Save();
     }
 }

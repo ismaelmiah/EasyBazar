@@ -16,12 +16,16 @@ namespace DataSets.Repository
             Product = new ProductRepository(_db);
             ApplicationUser = new ApplicationUserRepository(_db);
             ShoppingCart = new ShoppingCartRepository(_db);
+            OrderHeader = new OrderHeaderRepository(_db);
+            OrderDetails = new OrderDetailsRepository(_db);
         }
 
         public ICategory Category { get; private set; }
         public IProduct Product { get; private set; }
         public IApplicationUser ApplicationUser { get; private set; }
         public IShoppingCart ShoppingCart { get; private set; }
+        public IOrderDetails OrderDetails { get; private set; }
+        public IOrderHeader OrderHeader { get; private set; }
 
         public void Dispose()
         {
