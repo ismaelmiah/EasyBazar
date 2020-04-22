@@ -23,9 +23,9 @@ namespace Easy_Bazar.Areas.Customer.Controllers
     {
         private readonly IUnitOfWork _uow;
         private readonly IEmailSender _emailSender;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CartController(IUnitOfWork uow, IEmailSender emailSender, UserManager<IdentityUser> userManager)
+        public CartController(IUnitOfWork uow, IEmailSender emailSender, UserManager<ApplicationUser> userManager)
         {
             _uow = uow;
             _emailSender = emailSender;

@@ -14,19 +14,20 @@ using Microsoft.Extensions.Logging;
 using DataSets.Interfaces;
 using DataSets.Utility;
 using Microsoft.AspNetCore.Http;
+using DataSets.Entity;
 
 namespace Easy_Bazar.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IUnitOfWork _uow;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager,ILogger<LoginModel> logger,UserManager<IdentityUser> userManager, IEmailSender emailSender, IUnitOfWork uow)
+        public LoginModel(SignInManager<ApplicationUser> signInManager,ILogger<LoginModel> logger,UserManager<ApplicationUser> userManager, IEmailSender emailSender, IUnitOfWork uow)
         {
             _userManager = userManager;
             _emailSender = emailSender;
