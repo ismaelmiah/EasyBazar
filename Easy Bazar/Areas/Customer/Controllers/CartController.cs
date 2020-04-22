@@ -81,8 +81,7 @@ namespace Easy_Bazar.Areas.Customer.Controllers
                 values: new { area = "Identity", userId = user.Id, code = code },
                 protocol: Request.Scheme);
 
-            await _emailSender.SendEmailAsync(user.Email, "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+            //await _emailSender.SendEmailAsync(user.Email, "Confirm your email", $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
             ModelState.AddModelError(string.Empty, "verification emil sent.Please check your email!");
             return RedirectToAction("Index");
@@ -141,6 +140,7 @@ namespace Easy_Bazar.Areas.Customer.Controllers
 
             return RedirectToAction("Index");
         }
+
 
     }
 }
