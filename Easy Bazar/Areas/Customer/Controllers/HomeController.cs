@@ -37,7 +37,7 @@ namespace Easy_Bazar.Areas.Customer.Controllers
             var model = new HomeVM
             {
                 FeaturedCategories = _uow.Category.GetAll().Where(x => x.IsFeatured && x.ImageURL != null).ToList(),
-                Featured4Products = _uow.Product.GetAll(includeProperties: "Category").Take(4).ToList()
+                FeaturedProducts = _uow.Product.GetAll(includeProperties: "Category").Take(8).ToList()
             };
             //return View(model);
 
