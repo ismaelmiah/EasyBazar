@@ -54,6 +54,24 @@ namespace Easy_Bazar.Areas.Customer.Controllers
             }
             return View(model);
         }
+
+        public IActionResult Shop()
+        {
+            var model = new HomeVM
+            {
+                Products = _uow.Product.GetAll(includeProperties: "Category").ToList()
+            };
+
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if (claim != null)
+            {
+                var shoppingCount = _uow.ShoppingCart.GetAll(a => a.ApplicationUserId == claim.Value).ToList().Count();
+
+                HttpContext.Session.SetInt32(ProjectConstant.shoppingCart, shoppingCount);
+            }
+            return View(model);
+        }
         public IActionResult Details(int id)
         {
             var product = _uow.Product.GetFirstOrDefault(p => p.ID == id, includeProperties: "Category");
