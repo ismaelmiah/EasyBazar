@@ -10,16 +10,16 @@
             <li class="active"><a href="#" data-filter="*">All Products</a></li>
             @foreach (var item in Model.Products.Select(x => x.Category).ToList().Distinct())
             {
-                <li><a href="#" data-filter=".@item.Name">@item.Name </a></li>
+                <li><a href="#" data-filter=".@item.Name.ToLower()">@item.Name </a></li>
             }
         </ul>
         <div class="divider h32"></div>
     }
     <div class="product-content product-fourcolumn clearfix">
-        <ul class="product style2 clearfix">
+        <ul class="product style2 isotope-product  gutter-15 clearfix">
             @foreach (var item in Model.Products)
             {
-                <li class="product-item">
+                <li class="product-item @item.Category.Name.ToLower()">
                     <div class="product-thumb clearfix">
                         <a asp-action="Details" asp-route-id="@item.ID" class="product-thumb">
                             <img src="@item.ImageURL" alt="image">

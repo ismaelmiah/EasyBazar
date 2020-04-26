@@ -27,7 +27,7 @@ namespace Easy_Bazar.Areas.Customer.Controllers
 
             if (isLatestProduct)
             {
-                model.Products = _uow.Product.GetAll().Take(4).OrderByDescending(x => x.ID).ToList();  
+                model.Products = _uow.Product.GetAll(includeProperties: "Category").Take(4).OrderByDescending(x => x.ID).ToList();  
             }
             else
             {
