@@ -1,37 +1,64 @@
 ﻿@model DataSets.ViewModels.HomeVM
 
-<ul class="flat-filter style-3 max-width-682 text-center clearfix">
-    <li class="active"><a href="#" data-filter="*">All Products</a></li>
-    <li><a href="#" data-filter=".ecorative">Decorative </a></li>
-    <li><a href="#" data-filter=".table">Table & Chairs</a></li>
-    <li><a href="#" data-filter=".bedd">Bedd & Bath</a></li>
-    <li><a href="#" data-filter=".accessories">Accessories</a></li>
-</ul>
-<div class="divider h32"></div>
-<div class="product-content product-fourcolumn clearfix">
-    <ul class="product style4 isotope-product gutter-15 clearfix">
-        @foreach (var item in Model.Products)
-        {
-            <li class="product-item ecorative accessories">
-                <div class="product-thumb clearfix">
-                    <a asp-action="Details" asp-route-id="@item.ID">
-                        <img src="@item.ImageURL" alt="image">
-                    </a>
-                    <span class="new">New</span>
+@if (Model != null && Model.Products != null)
+{
+
+    if (!Model.IsLatestProduct)
+    {
+
+        <ul class="flat-filter style-1 text-center max-width-682 clearfix">
+            <li class="active"><a href="#" data-filter="*">All Products</a></li>
+            @foreach (var item in Model.Products.Select(x => x.Category).ToList().Distinct())
+            {
+                <li><a href="#" data-filter=".@item.Name">@item.Name </a></li>
+            }
+        </ul>
+        <div class="divider h32"></div>
+    }
+    <div class="product-content product-fourcolumn clearfix">
+        <ul class="product style2 clearfix">
+            @foreach (var item in Model.Products)
+            {
+                <li class="product-item">
+                    <div class="product-thumb clearfix">
+                        <a asp-action="Details" asp-route-id="@item.ID" class="product-thumb">
+                            <img src="@item.ImageURL" alt="image">
+                        </a>
+                        @if (Model.IsLatestProduct)
+                        {
+                            <span class="new">New</span>
+                        }
+                        else
+                        {
+                            <span class="new sale">Sale</span>
+                        }
+                    </div>
+                    <div class="product-info text-center clearfix">
+                        <span class="product-title">@item.Name</span>
+                        <div class="price">
+                            <ins>
+                                <span class="amount">$@item.Price.ToString("0.00")</span>
+                            </ins>
+                        </div>
+                        <ul class="flat-color-list width-14">
+                            <li>
+                                <a href="#" class="red"></a>
+                            </li>
+                            <li>
+                                <a href="#" class="blue"></a>
+                            </li>
+                            <li>
+                                <a href="#" class="black"></a>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="add-to-cart text-center">
                         <a asp-action="Details" asp-route-id="@item.ID">ADD TO CART</a>
                     </div>
-                </div>
-                <div class="product-info clearfix">
-                    <span class="product-title">@item.Name</span>
-                    <div class="price">
-                        <ins>
-                            <span class="amount">$@item.Price.ToString("0.00")</span>
-                        </ins>
-                    </div>
-                </div>
-                <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-            </li>
-        }
-    </ul>
-</div>
+                    <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
+                </li>
+            }
+        </ul>
+    </div>
+
+}

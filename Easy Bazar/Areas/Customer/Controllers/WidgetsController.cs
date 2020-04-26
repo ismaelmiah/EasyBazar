@@ -18,12 +18,21 @@ namespace Easy_Bazar.Areas.Customer.Controllers
         }
 
         [HttpGet]
-        public IActionResult Products()
+        public IActionResult Products(bool isLatestProduct)
         {
             var model = new HomeVM
             {
-                Products = _uow.Product.GetAll().ToList()
+                IsLatestProduct = isLatestProduct
             };
+
+            if (isLatestProduct)
+            {
+                model.Products = _uow.Product.GetAll().Take(4).OrderByDescending(x => x.ID).ToList();  
+            }
+            else
+            {
+                model.Products = _uow.Product.GetAll(includeProperties: "Category").Take(8).OrderByDescending(x=>x.ID).ToList();
+            }
             return PartialView(model);
         }
     }

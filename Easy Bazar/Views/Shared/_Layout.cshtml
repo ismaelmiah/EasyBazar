@@ -1,9 +1,7 @@
 ﻿@using DataSets.Utility
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
-@{ 
-    bool isAuthenticated = User.Identity.IsAuthenticated;
-}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,7 +60,7 @@
 </head>
 
 
-<body class="header_sticky header-style-2 header-absolute header-center has-menu-extra">
+<body class="header_sticky header-style-1 has-menu-extra">
     <!-- Preloader -->
     <div id="loading-overlay">
         <div class="loader"></div>
@@ -88,158 +86,332 @@
                                 <button type="submit" class="header-search-submit" title="Search">Search</button>
                             </form>
                         </li>
-
-                        @if (isAuthenticated)
-                        {
-                            <li class="box-login dropdown">
-                                <a class="icon_login dropdown-toggle" data-toggle="dropdown"> </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a asp-area="Admin" asp-controller="User" asp-action="Logout">Logout</a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="Identity" asp-page="/Account/Register">Register</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="box-login dropdown">
-                                <a class="icon_login dropdown-toggle" data-toggle="dropdown">
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a asp-area="Identity" asp-page="/Account/Login">Login</a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="Identity" asp-page="/Account/Register">Register</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        }
-
-                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart) != null)
-                        {
-                            <li class="box-cart nav-top-cart-wrapper">
-                                <a class="icon_cart nav-cart-trigger active" asp-area="Customer" asp-controller="Cart" asp-action="Index">
-                                    @{
-                                        var count = HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart);
-                                    }
-                                    <span>@count</span>
-                                </a>
-                            </li>
-                        }
-                        else
-                        {
-
-                            <li class="box-cart nav-top-cart-wrapper">
-                                <a class="icon_cart nav-cart-trigger active" asp-area="Customer" asp-controller="Cart" asp-action="Index">
-                                </a>
-                            </li>
-                        }
+                        <li class="box-login">
+                            <a class="icon_login" href="#"></a>
+                        </li>
+                        <li class="box-cart nav-top-cart-wrapper">
+                            <a class="icon_cart nav-cart-trigger active" href="#"><span>3</span></a>
+                            <div class="nav-shop-cart">
+                                <div class="widget_shopping_cart_content">
+                                    <div class="woocommerce-min-cart-wrap">
+                                        <ul class="woocommerce-mini-cart cart_list product_list_widget ">
+                                            <li class="woocommerce-mini-cart-item mini_cart_item">
+                                                <span>No Items in Shopping Cart</span>
+                                            </li>
+                                        </ul>
+                                    </div><!-- /.widget_shopping_cart_content -->
+                                </div>
+                            </div><!-- /.nav-shop-cart -->
+                        </li>
                     </ul><!-- /.menu-extra -->
                     <div class="nav-wrap">
                         <nav id="mainnav" class="mainnav">
                             <ul class="menu">
                                 <li class="active">
-                                    <a asp-action="index" asp-area="customer" asp-controller="Home">HOME</a>
+                                    <a href="index.html">HOME</a>
+                                    <ul class="submenu">
+                                        <li class="active"><a href="index.html">Homepage Style 1</a></li>
+                                        <li><a href="index-v2.html">Homepage Style 2</a></li>
+                                        <li><a href="index-v3.html">Homepage Style 3</a></li>
+                                        <li><a href="index-v4.html">Homepage Style 4</a></li>
+                                        <li><a href="index-v5.html">Homepage Style 5</a></li>
+                                        <li><a href="index-v6.html">Homepage Style 6</a></li>
+                                        <li><a href="index-v7.html">Homepage Style 7</a></li>
+                                        <li><a href="index-v8.html">Homepage Style 8</a></li>
+                                        <li><a href="index-v9.html">Homepage Style 9</a></li>
+                                        <li><a href="index-v10.html">Homepage Style 10</a></li>
+                                    </ul>
                                 </li>
                                 <li>
-                                    <a asp-action="shop" asp-area="customer" asp-controller="Home">SHOP</a>
+                                    <a href="shop-3col.html">SHOP</a>
+                                    <ul class="submenu">
+                                        <li>
+                                            <a href="shop-3col.html">Shop Layouts</a>
+                                            <ul class="submenu">
+                                                <li><a href="shop-3col.html">Three Columns</a></li>
+                                                <li><a href="shop-4col.html">Four Columns</a></li>
+                                                <li><a href="shop-5col.html">Five Columns</a></li>
+                                                <li><a href="shop-3col-slide.html">Slidebar Three Columns</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="shop-detail-des.html">Shop Details</a>
+                                            <ul class="submenu">
+                                                <li><a href="shop-detail-des.html">Details Description</a></li>
+                                                <li><a href="shop-detail-exter.html">Details External</a></li>
+                                                <li><a href="shop-detail-option.html">Details Options</a></li>
+                                                <li><a href="shop-detail-fix.html">Details Fix</a></li>
+                                                <li><a href="shop-detail-zoom.html">Details Zoom</a></li>
+                                                <li><a href="shop-detail-group.html">Details Grouped</a></li>
+                                                <li><a href="shop-detail-video.html">Details Video</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li>
                                     <a href="coming-soon.html">PAGE</a>
                                     <ul class="submenu">
                                         <li><a href="coming-soon.html">Coming Soon</a></li>
+                                        <li><a href="404.html"> Error 404</a></li>
                                         <li><a href="faqs.html">FAQs</a></li>
                                     </ul>
                                 </li>
                                 <li>
+                                    <a href="blog-list.html">BLOG</a>
+                                    <ul class="submenu">
+                                        <li><a href="blog-list.html">Blog List Full</a></li>
+                                        <li><a href="blog-list-1.html">Blog list Slide 1</a></li>
+                                        <li><a href="blog-list-2.html">Blog list Slide 2</a></li>
+                                        <li><a href="blog-grid.html">Blog Gird Full</a></li>
+                                        <li><a href="blog-grid-1.html">Blog Gird Slide</a></li>
+                                        <li><a href="blog-detail.html">Blog Details</a></li>
+                                    </ul><!-- /.submenu -->
+                                </li>
+                                <li>
                                     <a href="contact.html">CONTACT</a>
+                                    <ul class="submenu right-submenu">
+                                        <li><a href="contact.html">Contact Style 1</a></li>
+                                        <li><a href="contact-v2.html">Contact Style 2</a></li>
+                                    </ul>
                                 </li>
                             </ul>
                         </nav><!-- /.mainnav -->
                     </div><!-- /.nav-wrap -->
                 </div><!-- /.container-fluid -->
             </header><!-- /header -->
-        </div><!-- /.flat-header-wrap -->
-
-        <!-- PRODUCT -->
+        </div><!-- /#site-header-wrap -->
         @RenderBody()
-        <!-- END PRODUCT -->
-        <!-- COUNTDOWN -->
-        <div class="flat-row row-countdown no-padding bg-section row-2 ">
+
+        <!-- ICON BOX -->
+        <section class="flat-row row-icon-box bg-section bg-color-f5f">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6"></div>
-                    <div class="col-md-6">
-                        <div class="flat-content-box clearfix" data-margin="0 0 0 0" data-mobilemargin="0 0 0 0">
-                            <div class="flat-countdown-wrap text-center">
-                                <div class="inner">
-                                    <div class="divider h115 clearfix"></div>
-                                    <h2 class="heading font-size-40 line-height-48">Deal Of The Week</h2>
-                                    <p class="desc font-size-18 font-weight-400 line-height-48">Special Discount Limited Time Only</p>
-                                    <div class="divider h42 clearfix"></div>
-                                    <div class="wrap-countdown no-margin-bottom">
-                                        <div class="countdown style-1"></div>
-                                    </div>
-                                    <div class="divider h115 clearfix"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END COUNTDOWN -->
-        <!-- ICON BOX -->
-        <section class="flat-row row-icon-box style-3">
-            <div class="container">
-                <div class="row separator dark">
-                    <div class="col-md-4">
-                        <div class="flat-icon-box icon-left  style-2 clearfix">
-                            <div class="inner flat-content-box" data-margin="0 0 0 66px" data-mobilemargin="0 0 0 0">
+                    <div class="col-md-3">
+                        <div class="flat-icon-box icon-top style-1 clearfix text-center">
+                            <div class="inner no-margin">
                                 <div class="icon-wrap">
-                                    <i class="fa fa-plane"></i>
+                                    <i class="fa fa-truck"></i>
                                 </div>
                                 <div class="text-wrap">
                                     <h5 class="heading"><a href="#">Free Shipping</a></h5>
-                                    <p class="desc">Free shipping on order over $300</p>
+                                    <p class="desc">Free Shipping on order over $99</p>
                                 </div>
                             </div>
                         </div>
-                    </div><!-- /.col-md-4 -->
-                    <div class="col-md-4">
-                        <div class="flat-icon-box icon-left style-2 clearfix">
-                            <div class="inner flat-content-box" data-margin="0 0 0 82px" data-mobilemargin="0 0 0 0">
+                    </div><!-- /.col-md-3 -->
+                    <div class="col-md-3">
+                        <div class="flat-icon-box icon-top style-1 clearfix text-center">
+                            <div class="inner">
                                 <div class="icon-wrap">
-                                    <i class="fa fa-usd"></i>
+                                    <i class="fa fa-money"></i>
                                 </div>
                                 <div class="text-wrap">
                                     <h5 class="heading"><a href="#">Cash On Delivery</a></h5>
-                                    <p class="desc">The internet tend to repeat</p>
+                                    <p class="desc">The Internet Trend To Repeat</p>
                                 </div>
                             </div>
                         </div>
-                    </div><!-- /.col-md-4 -->
-                    <div class="col-md-4">
-                        <div class="flat-icon-box icon-left style-2 clearfix">
-                            <div class="inner flat-content-box" data-margin="0 0 0 74px" data-mobilemargin="0 0 0 0">
+                    </div><!-- /.col-md-3 -->
+                    <div class="col-md-3">
+                        <div class="flat-icon-box icon-top style-1 clearfix text-center">
+                            <div class="inner">
                                 <div class="icon-wrap">
-                                    <i class="fa fa-refresh"></i>
+                                    <i class="fa fa-gift"></i>
                                 </div>
                                 <div class="text-wrap">
-                                    <h5 class="heading"><a href="#">Money Safe</a></h5>
-                                    <p class="desc">30 day money guarantee</p>
+                                    <h5 class="heading"><a href="#">Gift For All</a></h5>
+                                    <p class="desc">Receive Gift When Subscribe</p>
                                 </div>
                             </div>
                         </div>
-                    </div><!-- /.col-md-4 -->
+                    </div><!-- /.col-md-3 -->
+                    <div class="col-md-3">
+                        <div class="flat-icon-box icon-top style-1 clearfix text-center">
+                            <div class="inner">
+                                <div class="icon-wrap">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <div class="text-wrap">
+                                    <h5 class="heading"><a href="#">Opening All Week</a></h5>
+                                    <p class="desc">6.00 am - 17.00pm</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.col-md-3 -->
                 </div>
             </div>
         </section>
         <!-- END ICON BOX -->
+        <!-- NEW LATEST -->
+        <section class="flat-row row-new-latest">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="title-section margin-bottom-40">
+                            <h2 class="title">New Latest</h2>
+                        </div>
+                        <div class="new-latest-wrap">
+                            <div class="flat-new-latest flat-carousel-box post-wrap style3 data-effect clearfix" data-auto="false" data-column="3" data-column2="2" data-column3="1" data-gap="30">
+                                <div class="owl-carousel owl-theme">
+                                    <article class="post clearfix">
+                                        <div class="featured-post data-effect-item">
+                                            <img src="images/blog/new-lastest-1-370x280.jpg" alt="image">
+                                            <div class="content-post text-center">
+                                                <div class="title-post">
+                                                    <h2><a href="blog-detail.html">Trend Of 2018</a></h2>
+                                                </div><!-- /.title-post -->
+                                                <ul class="meta-post">
+                                                    <li class="date">
+                                                        OCT 08, 2018
+                                                    </li>
+                                                    <li class="author">
+                                                        <a href="#">BY ADMIN</a>
+                                                    </li>
+                                                </ul><!-- /.meta-post -->
+                                                <div class="entry-post">
+                                                    <p>This is Heading the bank manager long ago won the battle for the heart of...</p>
+                                                    <div class="more-link">
+                                                        <a href="blog-detail.html">READ MORE</a>
+                                                    </div>
+                                                </div>
+                                            </div><!-- /.content-post -->
+                                            <div class="overlay-effect bg-overlay-black"></div>
+                                        </div>
+                                    </article><!-- /.post -->
+                                    <article class="post clearfix">
+                                        <div class="featured-post data-effect-item">
+                                            <img src="images/blog/new-lastest-2-370x280.jpg" alt="image">
+                                            <div class="content-post text-center">
+                                                <div class="title-post">
+                                                    <h2><a href="blog-detail.html">Trend Of 2018</a></h2>
+                                                </div><!-- /.title-post -->
+                                                <ul class="meta-post">
+                                                    <li class="date">
+                                                        OCT 08, 2018
+                                                    </li>
+                                                    <li class="author">
+                                                        <a href="#">BY ADMIN</a>
+                                                    </li>
+                                                </ul><!-- /.meta-post -->
+                                                <div class="entry-post">
+                                                    <p>This is Heading the bank manager long ago won the battle for the heart of...</p>
+                                                    <div class="more-link">
+                                                        <a href="blog-detail.html">READ MORE</a>
+                                                    </div>
+                                                </div>
+                                            </div><!-- /.content-post -->
+                                            <div class="overlay-effect bg-overlay-black"></div>
+                                        </div>
+                                    </article><!-- /.post -->
+                                    <article class="post clearfix">
+                                        <div class="featured-post data-effect-item">
+                                            <img src="images/blog/new-lastest-3-370x280.jpg" alt="image">
+                                            <div class="content-post text-center">
+                                                <div class="title-post">
+                                                    <h2><a href="blog-detail.html">Trend Of 2018</a></h2>
+                                                </div><!-- /.title-post -->
+                                                <ul class="meta-post">
+                                                    <li class="date">
+                                                        OCT 08, 2018
+                                                    </li>
+                                                    <li class="author">
+                                                        <a href="#">BY ADMIN</a>
+                                                    </li>
+                                                </ul><!-- /.meta-post -->
+                                                <div class="entry-post">
+                                                    <p>This is Heading the bank manager long ago won the battle for the heart of...</p>
+                                                    <div class="more-link">
+                                                        <a href="blog-detail.html">READ MORE</a>
+                                                    </div>
+                                                </div>
+                                            </div><!-- /.content-post -->
+                                            <div class="overlay-effect bg-overlay-black"></div>
+                                        </div>
+                                    </article><!-- /.post -->
+                                    <article class="post clearfix">
+                                        <div class="featured-post data-effect-item">
+                                            <img src="images/blog/new-lastest-1-370x280.jpg" alt="image">
+                                            <div class="content-post text-center">
+                                                <div class="title-post">
+                                                    <h2><a href="blog-detail.html">Trend Of 2018</a></h2>
+                                                </div><!-- /.title-post -->
+                                                <ul class="meta-post">
+                                                    <li class="date">
+                                                        OCT 08, 2018
+                                                    </li>
+                                                    <li class="author">
+                                                        <a href="#">BY ADMIN</a>
+                                                    </li>
+                                                </ul><!-- /.meta-post -->
+                                                <div class="entry-post">
+                                                    <p>This is Heading the bank manager long ago won the battle for the heart of...</p>
+                                                    <div class="more-link">
+                                                        <a href="blog-detail.html">READ MORE</a>
+                                                    </div>
+                                                </div>
+                                            </div><!-- /.content-post -->
+                                            <div class="overlay-effect bg-overlay-black"></div>
+                                        </div>
+                                    </article><!-- /.post -->
+                                    <article class="post clearfix">
+                                        <div class="featured-post data-effect-item">
+                                            <img src="images/blog/new-lastest-2-370x280.jpg" alt="image">
+                                            <div class="content-post text-center">
+                                                <div class="title-post">
+                                                    <h2><a href="blog-detail.html">Trend Of 2018</a></h2>
+                                                </div><!-- /.title-post -->
+                                                <ul class="meta-post">
+                                                    <li class="date">
+                                                        OCT 08, 2018
+                                                    </li>
+                                                    <li class="author">
+                                                        <a href="#">BY ADMIN</a>
+                                                    </li>
+                                                </ul><!-- /.meta-post -->
+                                                <div class="entry-post">
+                                                    <p>This is Heading the bank manager long ago won the battle for the heart of...</p>
+                                                    <div class="more-link">
+                                                        <a href="blog-detail.html">READ MORE</a>
+                                                    </div>
+                                                </div>
+                                            </div><!-- /.content-post -->
+                                            <div class="overlay-effect bg-overlay-black"></div>
+                                        </div>
+                                    </article><!-- /.post -->
+                                    <article class="post clearfix">
+                                        <div class="featured-post data-effect-item">
+                                            <img src="images/blog/new-lastest-3-370x280.jpg" alt="image">
+                                            <div class="content-post text-center">
+                                                <div class="title-post">
+                                                    <h2><a href="blog-detail.html">Trend Of 2018</a></h2>
+                                                </div><!-- /.title-post -->
+                                                <ul class="meta-post">
+                                                    <li class="date">
+                                                        OCT 08, 2018
+                                                    </li>
+                                                    <li class="author">
+                                                        <a href="#">BY ADMIN</a>
+                                                    </li>
+                                                </ul><!-- /.meta-post -->
+                                                <div class="entry-post">
+                                                    <p>This is Heading the bank manager long ago won the battle for the heart of...</p>
+                                                    <div class="more-link">
+                                                        <a href="blog-detail.html">READ MORE</a>
+                                                    </div>
+                                                </div>
+                                            </div><!-- /.content-post -->
+                                            <div class="overlay-effect bg-overlay-black"></div>
+                                        </div>
+                                    </article><!-- /.post -->
+                                </div><!-- /.owl-carousel -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END NEW LATEST -->
 
         <section class="flat-row mail-chimp">
             <div class="container">
@@ -327,7 +499,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="copyright text-center">Copyright &nabla; 2018 <a href="#">Modaz</a></p>
+                        <p class="copyright text-center">Copyright 2018 <a href="#">Modaz</a></p>
                     </div>
                 </div>
             </div>
