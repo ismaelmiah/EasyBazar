@@ -18,7 +18,7 @@ namespace Easy_Bazar.Areas.Customer.Controllers
         }
 
         [HttpGet]
-        public IActionResult Products(bool isLatestProduct)
+        public IActionResult Products(bool isLatestProduct, int? categoryid =0)
         {
             var model = new HomeVM
             {
@@ -28,6 +28,11 @@ namespace Easy_Bazar.Areas.Customer.Controllers
             if (isLatestProduct)
             {
                 model.Products = _uow.Product.GetAll(includeProperties: "Category").Take(4).OrderByDescending(x => x.ID).ToList();  
+            }
+            else if(categoryid.HasValue && categoryid.Value>0)
+            {
+                model.IsLatestProduct = true;
+                model.Products = _uow.Product.GetAll(includeProperties: "Category").Where(x=> x.CategoryID == categoryid.Value).Take(4).OrderByDescending(x => x.ID).ToList();
             }
             else
             {
