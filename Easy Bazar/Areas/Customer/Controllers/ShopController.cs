@@ -10,6 +10,7 @@ using DataSets.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Easy_Bazar.Code;
 
 namespace Easy_Bazar.Areas.Customer.Controllers
 {
@@ -21,7 +22,7 @@ namespace Easy_Bazar.Areas.Customer.Controllers
         {
             _uow = uow;
         }
-        public IActionResult Index(string searchterm, int? minPrice, int? maxPrice, int? cateId)
+        public IActionResult Index(string searchterm, int? Sortby, int? minPrice, int? maxPrice, int? cateId)
         {
             var model = new HomeVM();
             model.Products = _uow.Product.GetAll().ToList();
@@ -44,6 +45,26 @@ namespace Easy_Bazar.Areas.Customer.Controllers
                 model.Products = _uow.Product.GetAll().Where(x => x.Price <= maxPrice.Value).ToList();
             }
 
+            if (Sortby.HasValue)
+            {
+                var sort = (SortByEnums)Sortby.Value;
+                switch (sort)
+                {
+                    case SortByEnums.Default:
+                        model.Products = _uow.Product.GetAll().OrderByDescending(x=>x.ID).ToList();
+                        break;
+                    case SortByEnums.Popularity:
+                        model.Products = _uow.Product.GetAll().ToList();
+                        //Popularity Need to set
+                        break;
+                    case SortByEnums.PricelowToHigh:
+                        model.Products = _uow.Product.GetAll().OrderBy(x=>x.Price).ToList();
+                        break;
+                    case SortByEnums.PriceHighToLow:
+                        model.Products = _uow.Product.GetAll().OrderByDescending(x=>x.Price).ToList();
+                        break;
+                }
+            }
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             if (claim != null)

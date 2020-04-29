@@ -1,5 +1,5 @@
-﻿@model DataSets.ViewModels.HomeVM
-
+﻿@using Easy_Bazar.Code
+@model DataSets.ViewModels.HomeVM
 
 @{
     ViewData["Title"] = "Shop";
@@ -27,7 +27,7 @@
             <div class="col-md-12">
                 <div class="filter-shop clearfix">
                     <p class="showing-product">
-                        Showing 1–12 of 56 Products
+                        Showing 1–12 of @Model.Products.Count() Products
                     </p>
                     <ul class="flat-filter-search">
                         <li>
@@ -43,10 +43,10 @@
                             Sort By
                         </h5>
                         <ul>
-                            <li><a href="#" class="active">Default</a></li>
-                            <li><a href="#">Popularity</a></li>
-                            <li><a href="#">Price: low to high</a></li>
-                            <li><a href="#">Price: high to low</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new { Sortby = (int)SortByEnums.Default})" class="active">Default - Newest</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new { Sortby =(int) SortByEnums.Popularity})">Popularity</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new { Sortby =(int) SortByEnums.PricelowToHigh})">Price: low to high</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new { Sortby =(int) SortByEnums.PriceHighToLow})">Price: high to low</a></li>
                         </ul>
                     </div><!-- /.widget-sort-by -->
                     <div class="widget widget-price">
@@ -73,9 +73,9 @@
                     </div><!-- /.widget -->
                 </div><!-- /.box-filter -->
                 <div class="shop-search clearfix">
-                    <form role="search" method="get" class="search-form" action="#">
+                    <form role="search" method="get" class="search-form" action="@Url.Action("Index", "Shop")">
                         <label>
-                            <input type="search" class="search-field" placeholder="Searching …" value="" name="s">
+                            <input type="search" class="search-field" placeholder="Searching …" value="" name="searchterm">
                         </label>
                     </form>
                 </div><!-- /.top-serach -->
