@@ -213,13 +213,13 @@
                     <h2 class="title">Related Products</h2>
                 </div>
 
-                <div class="product-content product-fourcolumn clearfix">                            
-                <div id="relatedProduct"></div>
-                <script>
+                <div class="product-content product-fourcolumn clearfix">
+                    <div id="relatedProduct"></div>
+                    <script>
                     $.get('@Url.Action("Products","Widgets")', { isLatestProduct: false, categoryid: @Model.Product.CategoryID}, function (content) {
                         $("#relatedProduct").html(content);
                     });
-                </script>
+                    </script>
                 </div><!-- /.product-content -->
             </div>
         </div><!-- /.row -->

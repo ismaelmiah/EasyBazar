@@ -67,7 +67,7 @@
                         <div class="tag-list">
                             @foreach (var item in Model.Categories)
                             {
-                                <a href="#">@item.Name</a>
+                                <a href="@Url.Action("Index","Shop", new {cateId = item.ID })">@item.Name</a>
                             }
                         </div>
                     </div><!-- /.widget -->
@@ -91,7 +91,7 @@
                                     <span class="new sale">Sale</span>
                                 </div>
                                 <div class="product-info clearfix">
-                                    <span class="product-title">@item.Name<br> @item.Category.Name</span>
+                                    <span class="product-title">@item.Name</span>
                                     <div class="price">
                                         <del>
                                             <span class="regular">@item.ListPrice.ToString("c")</span>
