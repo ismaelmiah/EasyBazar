@@ -12,5 +12,6 @@ namespace DataSets.ViewModels
         public List<Product> FeaturedProducts { get; set; }
         public List<Product> Products { get; set; }
         public bool IsLatestProduct { get; set; }
+        public int? sortBy { get; set; }
     }
 }

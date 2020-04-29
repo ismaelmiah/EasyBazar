@@ -41,20 +41,26 @@
 
     <![endif]-->
     <!-- CSS add for DataTables-->
-
+    <!--
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 
-
+    -->
+    <link rel="stylesheet" type="text/css" href="~/css/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="~/css/dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="~/css/toastr.min.css" />
     <link rel="stylesheet" type="text/css" href="~/css/font-awesome.css" />
-    <link rel="stylesheet" type="text/css" href="~/css/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="~/css/jstarbox.css" />
 
     <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/js/all.min.js"></script>
+    <script type="text/javascript" src="~/js/dataTable.min.js"></script>
+    <script type="text/javascript" src="~/js/toastr.min.js"></script>
+    <script type="text/javascript" src="~/js/sweetalert.js"></script>
+
 </head>
 
 
@@ -112,7 +118,7 @@
                                     <a asp-action="Index" asp-area="Customer" asp-controller="Shop">SHOP</a>
                                 </li>
                                 <li>
-                                    <a asp-action="Checkout" asp-area="Customer" asp-controller="Shop" >CHECKOUT</a>
+                                    <a asp-action="Checkout" asp-area="Customer" asp-controller="Shop">CHECKOUT</a>
                                 </li>
                             </ul>
                         </nav><!-- /.mainnav -->
@@ -143,7 +149,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <ul class="flat-social"  style="padding-left: 45px;">
+                            <ul class="flat-social" style="padding-left: 45px;">
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-google"></i></a></li>
@@ -224,13 +230,7 @@
 
     <!-- Javascript -->
 
-    <script type="text/javascript" src="~/js/all.min.js"></script>
-    <script type="text/javascript" src="~/js/dataTable.min.js"></script>
-    <script type="text/javascript" src="~/js/toastr.min.js"></script>
-    <script type="text/javascript" src="~/js/sweetalert.js"></script>
-    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="~/js/easing.js"></script>
-    <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="~/js/jquery.mycart.js"></script>
     <script type="text/javascript" src="~/js/jquery.vide.min.js"></script>
     <script type="text/javascript" src="~/js/jstarbox.js"></script>
@@ -252,9 +252,9 @@
     <script src="~/javascript/owl.carousel.min.js"></script>
     <script src="~/javascript/equalize.min.js"></script>
     <script src="~/javascript/gmap3.min.js"></script>
-    <script src="~/javascript/jquery-ui.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEU6OT3xqCksCetQeNLIPps6-AYrhq-s&region=GB"></script>
-
+    <!--
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEU6OT3xqCksCetQeNLIPps6-AYrhq-s&region=GB"></script>
+    -->
     <script src="~/javascript/jquery.cookie.js"></script>
     <script src="~/javascript/main.js"></script>
 
@@ -274,12 +274,12 @@
     <script src="~/rev-slider/js/extensions/revolution.extension.video.min.js"></script>
 
     <!-- Scripts add for DataTables
-
-    -->
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    -->
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

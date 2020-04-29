@@ -43,10 +43,10 @@
                             Sort By
                         </h5>
                         <ul>
-                            <li><a href="@Url.Action("Index", "Shop", new { Sortby = (int)SortByEnums.Default})" class="active">Default - Newest</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new { Sortby =(int) SortByEnums.Popularity})">Popularity</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new { Sortby =(int) SortByEnums.PricelowToHigh})">Price: low to high</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new { Sortby =(int) SortByEnums.PriceHighToLow})">Price: high to low</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new { Sortby = (int)SortByEnums.Default})" class="@(Model.sortBy.HasValue ? Model.sortBy.Value ==(int)SortByEnums.Default ? "active" : string.Empty : string.Empty )">Default - Newest</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new { Sortby = (int)SortByEnums.Popularity})" class="@(Model.sortBy.HasValue ? Model.sortBy.Value ==(int)SortByEnums.Popularity ? "active" : string.Empty : string.Empty )">Popularity</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new { Sortby = (int)SortByEnums.PricelowToHigh})" class="@(Model.sortBy.HasValue ? Model.sortBy.Value ==(int)SortByEnums.PricelowToHigh ? "active" : string.Empty : string.Empty )">Price: Low To High</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new { Sortby = (int)SortByEnums.PriceHighToLow})" class="@(Model.sortBy.HasValue ? Model.sortBy.Value ==(int)SortByEnums.PriceHighToLow ? "active" : string.Empty : string.Empty )">Price: High To Low</a></li>
                         </ul>
                     </div><!-- /.widget-sort-by -->
                     <div class="widget widget-price">

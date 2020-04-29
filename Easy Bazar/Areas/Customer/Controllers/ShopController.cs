@@ -48,6 +48,7 @@ namespace Easy_Bazar.Areas.Customer.Controllers
             if (Sortby.HasValue)
             {
                 var sort = (SortByEnums)Sortby.Value;
+                model.sortBy = Sortby;
                 switch (sort)
                 {
                     case SortByEnums.Default:
