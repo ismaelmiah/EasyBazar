@@ -37,7 +37,7 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         #region API CALLS
         public IActionResult GetAll()
         {
-            var allObj = _uow.Category.GetAll();
+            var allObj = _uow.Category.GetAll(includeProperties: "Products");
             return Json(new { data = allObj });
         }
 

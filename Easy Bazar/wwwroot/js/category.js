@@ -13,6 +13,7 @@ function loadDataTable() {
             { "data": "name", "width": "20%" },
             { "data": "description", "width": "20%" },
             { "data": "isFeatured", "width": "20%" },
+            { "data": "products.length", "width": "20%" },
             {
                 "data": "id",
                 "render": function (data) {

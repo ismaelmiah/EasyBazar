@@ -1,0 +1,44 @@
+﻿@model DataSets.ViewModels.ShopVM
+
+<div class="product-content product-fivecolumn clearfix">
+    <ul class="product style3">
+        @foreach (var item in Model.Products)
+        {
+            <li class="product-item">
+                <div class="product-thumb clearfix">
+                    <a asp-action="Details" asp-route-id="@item.ID">
+                        <img src="@item.ImageURL" alt="image">
+                    </a>
+                    <span class="new sale">Sale</span>
+                </div>
+                <div class="product-info clearfix">
+                    <span class="product-title">@item.Name</span>
+                    <div class="price">
+                        <del>
+                            <span class="regular">@item.ListPrice.ToString("c")</span>
+                        </del>
+                        <ins>
+                            <span class="amount">@item.Price.ToString("c")</span>
+                        </ins>
+                    </div>
+                </div>
+                <div class="add-to-cart text-center">
+                    <a asp-action="Details" asp-route-id="@item.ID">ADD TO CART</a>
+                </div>
+                <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
+            </li>
+
+        }
+    </ul><!-- /.product -->
+</div><!-- /.product-content -->
+<div class="product-pagination text-center clearfix">
+    <ul class="flat-pagination">
+        <li class="prev">
+            <a href="#"><i class="fa fa-angle-left"></i></a>
+        </li>
+        <li><a href="#">1</a></li>
+        <li class="active"><a href="#" title="">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+    </ul><!-- /.flat-pagination -->
+</div>

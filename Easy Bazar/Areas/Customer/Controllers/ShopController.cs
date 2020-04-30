@@ -22,6 +22,60 @@ namespace Easy_Bazar.Areas.Customer.Controllers
         {
             _uow = uow;
         }
+        public IActionResult FilterIndex(string searchterm, int? Sortby, int? minPrice, int? maxPrice, int? cateId)
+        {
+            var model = new ShopVM();
+            model.Products = _uow.Product.GetAll().ToList();
+            model.Categories = _uow.Category.GetAll().ToList();
+
+            if (cateId.HasValue)
+            {
+                model.Products = _uow.Product.GetAll().Where(x => x.CategoryID == cateId.Value).ToList();
+            }
+            if (!string.IsNullOrEmpty(searchterm))
+            {
+                model.Products = _uow.Product.GetAll().Where(x => x.Name.ToLower().Contains(searchterm.ToLower())).ToList();
+            }
+            if (minPrice.HasValue)
+            {
+                model.Products = _uow.Product.GetAll().Where(x => x.Price >= minPrice.Value).ToList();
+            }
+            if (maxPrice.HasValue)
+            {
+                model.Products = _uow.Product.GetAll().Where(x => x.Price <= maxPrice.Value).ToList();
+            }
+
+            if (Sortby.HasValue)
+            {
+                var sort = (SortByEnums)Sortby.Value;
+                model.sortBy = Sortby;
+                switch (sort)
+                {
+                    case SortByEnums.Default:
+                        model.Products = _uow.Product.GetAll().OrderByDescending(x => x.ID).ToList();
+                        break;
+                    case SortByEnums.Popularity:
+                        model.Products = _uow.Product.GetAll().ToList();
+                        //Popularity Need to set
+                        break;
+                    case SortByEnums.PricelowToHigh:
+                        model.Products = _uow.Product.GetAll().OrderBy(x => x.Price).ToList();
+                        break;
+                    case SortByEnums.PriceHighToLow:
+                        model.Products = _uow.Product.GetAll().OrderByDescending(x => x.Price).ToList();
+                        break;
+                }
+            }
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if (claim != null)
+            {
+                var shoppingCount = _uow.ShoppingCart.GetAll(a => a.ApplicationUserId == claim.Value).ToList().Count();
+
+                HttpContext.Session.SetInt32(ProjectConstant.shoppingCart, shoppingCount);
+            }
+            return PartialView(model);
+        }
         public IActionResult Index(string searchterm, int? Sortby, int? minPrice, int? maxPrice, int? cateId)
         {
             var model = new HomeVM();

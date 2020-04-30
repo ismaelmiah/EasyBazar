@@ -51,14 +51,20 @@
                     </div><!-- /.widget-sort-by -->
                     <div class="widget widget-price">
                         <h5 class="widget-title">Price</h5>
-                        <ul>
-                            <li><a href="#" class="active">$0.00 - $50.00</a></li>
-                            <li><a href="#">$50.00 - $100.00</a></li>
-                            <li><a href="#">$100.00 - $150.00</a></li>
-                            <li><a href="#">$150.00 - $200.00</a></li>
-                            <li><a href="#">$200.00 - 250.00</a></li>
-                            <li><a href="#">250.00+</a></li>
-                        </ul>
+                        <div class="price_slider">
+                            <div id="slide-range"></div>
+                            <p class="amount">
+                                Price: <input type="text" id="amount" disabled="disabled" />
+                            </p>
+                        </div>
+                        @*<ul>
+                <li><a href="#" class="active">$0.00 - $50.00</a></li>
+                <li><a href="#">$50.00 - $100.00</a></li>
+                <li><a href="#">$100.00 - $150.00</a></li>
+                <li><a href="#">$150.00 - $200.00</a></li>
+                <li><a href="#">$200.00 - 250.00</a></li>
+                <li><a href="#">250.00+</a></li>
+                </ul>*@
                     </div><!-- /.widget -->
                     <div class="widget widget_tag">
                         <h5 class="widget-title">
@@ -79,48 +85,19 @@
                         </label>
                     </form>
                 </div><!-- /.top-serach -->
-                <div class="product-content product-fivecolumn clearfix">
-                    <ul class="product style3">
-                        @foreach (var item in Model.Products)
-                        {
-                            <li class="product-item">
-                                <div class="product-thumb clearfix">
-                                    <a asp-action="Details" asp-route-id="@item.ID">
-                                        <img src="@item.ImageURL" alt="image">
-                                    </a>
-                                    <span class="new sale">Sale</span>
-                                </div>
-                                <div class="product-info clearfix">
-                                    <span class="product-title">@item.Name</span>
-                                    <div class="price">
-                                        <del>
-                                            <span class="regular">@item.ListPrice.ToString("c")</span>
-                                        </del>
-                                        <ins>
-                                            <span class="amount">@item.Price.ToString("c")</span>
-                                        </ins>
-                                    </div>
-                                </div>
-                                <div class="add-to-cart text-center">
-                                    <a asp-action="Details" asp-route-id="@item.ID">ADD TO CART</a>
-                                </div>
-                                <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-                            </li>
 
-                        }
-                    </ul><!-- /.product -->
-                </div><!-- /.product-content -->
-                <div class="product-pagination text-center clearfix">
-                    <ul class="flat-pagination">
-                        <li class="prev">
-                            <a href="#"><i class="fa fa-angle-left"></i></a>
-                        </li>
-                        <li><a href="#">1</a></li>
-                        <li class="active"><a href="#" title="">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                    </ul><!-- /.flat-pagination -->
-                </div>
+                <div id="productsdiv"></div>
+                @{
+                    var filtermodel = new DataSets.ViewModels.ShopVM();
+                    filtermodel.Products = Model.Products;
+
+                    Html.RenderPartial("FilterIndex",filtermodel);
+                }
+                @*<script>
+                    $.get('@Url.Action("FilterIndex","Shop",filtermodel)', function (content) {
+                        $("#productsdiv").html(content);
+                    });
+                </script>*@
             </div><!-- /.col-md-12 -->
         </div><!-- /.row -->
     </div><!-- /.container -->
@@ -139,6 +116,34 @@
             $(".search-product").click(function () {
                 $(".search-field").focus();
             });
+
+            var priceSlider = $("#slide-range").slider({
+                range: true,
+                min: 0,
+                max: 2900,
+                values: [0, 2900],
+                slide: function (event, ui) {
+                    console.log("Changed");
+                    $("#amount").val("$" + ui.values[0] + ".00" + " - " + "$" + ui.values[1] + ".00");
+
+                }
+            });
+
+            function GetData(minPrice,maxPrice) {
+                $.ajax({
+                    url: '@Url.Action("FilterIndex","Shop")',
+                    data: {
+                        minPrice: priceSlider.slider("values", 0),
+                        maxPrice: priceSlider.slider("values", 1)
+                    }
+                })
+                    .done(function (response) {
+                        $("#productsdiv").html(response);
+                    })
+                    .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("Fail");
+                    });
+            }
         });
     </script>
 }
