@@ -52,7 +52,7 @@
                     <div class="widget widget-price">
                         <h5 class="widget-title">Price</h5>
                         <div class="price_slider">
-                            <div id="slide-range"></div>
+                            <div id="slide_range"></div>
                             <p class="amount">
                                 Price: <input type="text" id="amount" disabled="disabled" />
                             </p>
@@ -86,13 +86,15 @@
                     </form>
                 </div><!-- /.top-serach -->
 
-                <div id="productsdiv"></div>
-                @{
-                    var filtermodel = new DataSets.ViewModels.ShopVM();
-                    filtermodel.Products = Model.Products;
+                <div id="productsdiv">
+                    @{
+                        var filtermodel = new DataSets.ViewModels.ShopVM();
+                        filtermodel.Products = Model.Products;
 
-                    Html.RenderPartial("FilterIndex",filtermodel);
-                }
+                        Html.RenderPartial("FilterIndex", filtermodel);
+                    }
+                </div>
+                
                 @*<script>
                     $.get('@Url.Action("FilterIndex","Shop",filtermodel)', function (content) {
                         $("#productsdiv").html(content);
@@ -106,6 +108,7 @@
 
 @section Scripts{
     <script>
+
         $(document).ready(function () {
             $(".show-filter").click(function () {
                 $(".slidebar-shop").toggle(1000);
@@ -116,20 +119,26 @@
             $(".search-product").click(function () {
                 $(".search-field").focus();
             });
-
-            var priceSlider = $("#slide-range").slider({
+            var calltimeout;
+            var priceSlider = $("#slide_range").slider({
                 range: true,
                 min: 0,
-                max: 2900,
-                values: [0, 2900],
+                max: @Model.Products.Max(x=>x.Price),
+                values: [0, @Model.Products.Max(x=>x.Price)],
                 slide: function (event, ui) {
-                    console.log("Changed");
-                    $("#amount").val("$" + ui.values[0] + ".00" + " - " + "$" + ui.values[1] + ".00");
+                    var minPrice = ui.values[0];
+                    var maxPrice = ui.values[1];
 
+                    $("#amount").val("$" + minPrice + ".00" + " - " + "$" + maxPrice + ".00");
+
+                    clearTimeout(calltimeout);
+                    calltimeout = setTimeout(GetData, 1000);
                 }
             });
 
-            function GetData(minPrice,maxPrice) {
+            function GetData() {
+
+                console.log("Get Data Called");
                 $.ajax({
                     url: '@Url.Action("FilterIndex","Shop")',
                     data: {
