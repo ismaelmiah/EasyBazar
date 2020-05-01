@@ -43,10 +43,10 @@
                             Sort By
                         </h5>
                         <ul>
-                            <li><a href="@Url.Action("Index", "Shop", new { Sortby = (int)SortByEnums.Default})" class="@(Model.sortBy.HasValue ? Model.sortBy.Value ==(int)SortByEnums.Default ? "active" : string.Empty : string.Empty )">Default - Newest</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new { Sortby = (int)SortByEnums.Popularity})" class="@(Model.sortBy.HasValue ? Model.sortBy.Value ==(int)SortByEnums.Popularity ? "active" : string.Empty : string.Empty )">Popularity</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new { Sortby = (int)SortByEnums.PricelowToHigh})" class="@(Model.sortBy.HasValue ? Model.sortBy.Value ==(int)SortByEnums.PricelowToHigh ? "active" : string.Empty : string.Empty )">Price: Low To High</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new { Sortby = (int)SortByEnums.PriceHighToLow})" class="@(Model.sortBy.HasValue ? Model.sortBy.Value ==(int)SortByEnums.PriceHighToLow ? "active" : string.Empty : string.Empty )">Price: High To Low</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new { Sortby = (int)SortByEnums.Default, cateId = Model.categoryid})" class="@(Model.sortBy.HasValue ? Model.sortBy.Value ==(int)SortByEnums.Default ? "active" : string.Empty : string.Empty )">Default - Newest</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new { Sortby = (int)SortByEnums.Popularity, cateId = Model.categoryid})" class="@(Model.sortBy.HasValue ? Model.sortBy.Value ==(int)SortByEnums.Popularity ? "active" : string.Empty : string.Empty )">Popularity</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new { Sortby = (int)SortByEnums.PricelowToHigh, cateId = Model.categoryid})" class="@(Model.sortBy.HasValue ? Model.sortBy.Value ==(int)SortByEnums.PricelowToHigh ? "active" : string.Empty : string.Empty )">Price: Low To High</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new { Sortby = (int)SortByEnums.PriceHighToLow, cateId = Model.categoryid})" class="@(Model.sortBy.HasValue ? Model.sortBy.Value ==(int)SortByEnums.PriceHighToLow ? "active" : string.Empty : string.Empty )">Price: High To Low</a></li>
                         </ul>
                     </div><!-- /.widget-sort-by -->
                     <div class="widget widget-price">
@@ -73,7 +73,7 @@
                         <div class="tag-list">
                             @foreach (var item in Model.Categories)
                             {
-                                <a href="@Url.Action("Index","Shop", new {cateId = item.ID })" class="@(Model.categoryid.HasValue && Model.categoryid.Value == item.ID? "active" : string.Empty)">@item.Name</a>
+                                <a href="@Url.Action("Index","Shop", new {cateId = item.ID, Sortby = Model.sortBy })" class="@(Model.categoryid.HasValue && Model.categoryid.Value == item.ID? "active" : string.Empty)">@item.Name</a>
                             }
                         </div>
                     </div><!-- /.widget -->
@@ -142,6 +142,7 @@
                 $.ajax({
                     url: '@Url.Action("FilterIndex","Shop")',
                     data: {
+                        Sortby: '@Model.sortBy',
                         cateId: '@Model.categoryid',
                         minPrice: priceSlider.slider("values", 0),
                         maxPrice: priceSlider.slider("values", 1)
