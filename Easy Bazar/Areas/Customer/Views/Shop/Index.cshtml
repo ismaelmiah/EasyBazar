@@ -50,7 +50,7 @@
                         </ul>
                     </div><!-- /.widget-sort-by -->
                     <div class="widget widget-price">
-                        <h5 class="widget-title">Price</h5>
+                        <h5 class="widget-title">Filter By Price</h5>
                         <div class="price_slider">
                             <div id="slide_range"></div>
                             <p class="amount">
@@ -66,14 +66,14 @@
                 <li><a href="#">250.00+</a></li>
                 </ul>*@
                     </div><!-- /.widget -->
-                    <div class="widget widget_tag">
+                    <div class="widget widget_tag" style="margin-left: 100px">
                         <h5 class="widget-title">
                             Categories
                         </h5>
                         <div class="tag-list">
                             @foreach (var item in Model.Categories)
                             {
-                                <a href="@Url.Action("Index","Shop", new {cateId = item.ID })">@item.Name</a>
+                                <a href="@Url.Action("Index","Shop", new {cateId = item.ID })" class="@(Model.categoryid.HasValue && Model.categoryid.Value == item.ID? "active" : string.Empty)">@item.Name</a>
                             }
                         </div>
                     </div><!-- /.widget -->
@@ -138,10 +138,11 @@
 
             function GetData() {
 
-                console.log("Get Data Called");
+               // console.log("Get Data Called");
                 $.ajax({
                     url: '@Url.Action("FilterIndex","Shop")',
                     data: {
+                        cateId: '@Model.categoryid',
                         minPrice: priceSlider.slider("values", 0),
                         maxPrice: priceSlider.slider("values", 1)
                     }

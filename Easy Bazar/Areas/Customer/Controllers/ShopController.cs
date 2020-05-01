@@ -25,24 +25,24 @@ namespace Easy_Bazar.Areas.Customer.Controllers
         public IActionResult FilterIndex(string searchterm, int? Sortby, int? minPrice, int? maxPrice, int? cateId)
         {
             var model = new ShopVM();
-            model.Products = _uow.Product.GetAll().ToList();
+            var Products = _uow.Product.GetAll().ToList();
             model.Categories = _uow.Category.GetAll().ToList();
 
             if (cateId.HasValue)
             {
-                model.Products = _uow.Product.GetAll().Where(x => x.CategoryID == cateId.Value).ToList();
+                Products = Products.Where(x => x.CategoryID == cateId.Value).ToList();
             }
             if (!string.IsNullOrEmpty(searchterm))
             {
-                model.Products = _uow.Product.GetAll().Where(x => x.Name.ToLower().Contains(searchterm.ToLower())).ToList();
+                Products = Products.Where(x => x.Name.ToLower().Contains(searchterm.ToLower())).ToList();
             }
             if (minPrice.HasValue)
             {
-                model.Products = _uow.Product.GetAll().Where(x => x.Price >= minPrice.Value).ToList();
+                Products = Products.Where(x => x.Price >= minPrice.Value).ToList();
             }
             if (maxPrice.HasValue)
             {
-                model.Products = _uow.Product.GetAll().Where(x => x.Price <= maxPrice.Value).ToList();
+                Products = Products.Where(x => x.Price <= maxPrice.Value).ToList();
             }
 
             if (Sortby.HasValue)
@@ -52,20 +52,21 @@ namespace Easy_Bazar.Areas.Customer.Controllers
                 switch (sort)
                 {
                     case SortByEnums.Default:
-                        model.Products = _uow.Product.GetAll().OrderByDescending(x => x.ID).ToList();
+                        Products = Products.OrderByDescending(x => x.ID).ToList();
                         break;
                     case SortByEnums.Popularity:
-                        model.Products = _uow.Product.GetAll().ToList();
+                        Products = Products.ToList();
                         //Popularity Need to set
                         break;
                     case SortByEnums.PricelowToHigh:
-                        model.Products = _uow.Product.GetAll().OrderBy(x => x.Price).ToList();
+                        Products = Products.OrderBy(x => x.Price).ToList();
                         break;
                     case SortByEnums.PriceHighToLow:
-                        model.Products = _uow.Product.GetAll().OrderByDescending(x => x.Price).ToList();
+                        Products = Products.OrderByDescending(x => x.Price).ToList();
                         break;
                 }
             }
+            model.Products = Products;
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             if (claim != null)
@@ -79,24 +80,24 @@ namespace Easy_Bazar.Areas.Customer.Controllers
         public IActionResult Index(string searchterm, int? Sortby, int? minPrice, int? maxPrice, int? cateId)
         {
             var model = new HomeVM();
-            model.Products = _uow.Product.GetAll().ToList();
+            var Products = _uow.Product.GetAll().ToList();
             model.Categories = _uow.Category.GetAll().ToList();
 
             if (cateId.HasValue)
             {
-                model.Products = _uow.Product.GetAll().Where(x=>x.CategoryID==cateId.Value).ToList();
+                Products = Products.Where(x=>x.CategoryID==cateId.Value).ToList();
             }
             if (!string.IsNullOrEmpty(searchterm))
             {
-                model.Products = _uow.Product.GetAll().Where(x=>x.Name.ToLower().Contains(searchterm.ToLower())).ToList();
+                Products = Products.Where(x=>x.Name.ToLower().Contains(searchterm.ToLower())).ToList();
             }
             if (minPrice.HasValue)
             {
-                model.Products = _uow.Product.GetAll().Where(x=>x.Price>=minPrice.Value).ToList();
+                Products = Products.Where(x=>x.Price>=minPrice.Value).ToList();
             }
             if (maxPrice.HasValue)
             {
-                model.Products = _uow.Product.GetAll().Where(x => x.Price <= maxPrice.Value).ToList();
+                Products = Products.Where(x => x.Price <= maxPrice.Value).ToList();
             }
 
             if (Sortby.HasValue)
@@ -106,20 +107,21 @@ namespace Easy_Bazar.Areas.Customer.Controllers
                 switch (sort)
                 {
                     case SortByEnums.Default:
-                        model.Products = _uow.Product.GetAll().OrderByDescending(x=>x.ID).ToList();
+                        Products = Products.OrderByDescending(x=>x.ID).ToList();
                         break;
                     case SortByEnums.Popularity:
-                        model.Products = _uow.Product.GetAll().ToList();
+                        Products = Products.ToList();
                         //Popularity Need to set
                         break;
                     case SortByEnums.PricelowToHigh:
-                        model.Products = _uow.Product.GetAll().OrderBy(x=>x.Price).ToList();
+                        Products = Products.OrderBy(x=>x.Price).ToList();
                         break;
                     case SortByEnums.PriceHighToLow:
-                        model.Products = _uow.Product.GetAll().OrderByDescending(x=>x.Price).ToList();
+                        Products = Products.OrderByDescending(x=>x.Price).ToList();
                         break;
                 }
             }
+            model.Products = Products;
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             if (claim != null)
@@ -128,6 +130,7 @@ namespace Easy_Bazar.Areas.Customer.Controllers
 
                 HttpContext.Session.SetInt32(ProjectConstant.shoppingCart, shoppingCount);
             }
+            model.categoryid = cateId;
             return View(model);
         }
 
