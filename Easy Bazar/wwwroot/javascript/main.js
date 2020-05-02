@@ -831,27 +831,6 @@
 	  flatEffectDir();
 	  flatIsotope();
 	  flatCarouselOwl();
-	flatContentBox();
-	hideLoader();
-	showLoader();
+	  flatContentBox();
 	});
 })(jQuery);
-
-
-function hideLoader() {
-	$(window).on("load", function () {
-		$(".loader").fadeOut();
-		$("#loading-overlay").delay(500).fadeOut('slow', function () {
-			$(this).remove();
-		});
-	});
-}
-
-function showLoader() {
-	$(window).on("load", function () {
-		$(".loader").fadeIn();
-		$("#loading-overlay").delay(500).fadeIn('slow', function () {
-			$(this).remove();
-		});
-	});
-}

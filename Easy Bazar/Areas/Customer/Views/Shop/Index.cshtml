@@ -112,7 +112,6 @@
     <script>
 
         $(document).ready(function () {
-            $(".slidebar-shop").hide();
             $(".show-filter").click(function () {
                 $(".slidebar-shop").toggle(1000);
             });
@@ -148,7 +147,7 @@
             });
 
             function GetData(durl) {
-                showLoader();
+
                // console.log("Get Data Called");
                 $.ajax({
                     url: durl,
@@ -166,7 +165,6 @@
                     .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                         alert("Fail");
                     });
-                hideLoader();
             }
 
             function PriceRangeChange() {
@@ -189,7 +187,6 @@
                         alert("Fail");
                     });
             }
-
         });
     </script>
 }
