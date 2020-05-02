@@ -75,6 +75,9 @@ namespace Easy_Bazar.Areas.Customer.Controllers
 
                 HttpContext.Session.SetInt32(ProjectConstant.shoppingCart, shoppingCount);
             }
+            model.categoryid = cateId;
+            model.sortBy = Sortby;
+            model.SearchTerm = searchterm;
             return PartialView(model);
         }
         public IActionResult Index(string searchterm, int? Sortby, int? minPrice, int? maxPrice, int? cateId)
@@ -131,6 +134,8 @@ namespace Easy_Bazar.Areas.Customer.Controllers
                 HttpContext.Session.SetInt32(ProjectConstant.shoppingCart, shoppingCount);
             }
             model.categoryid = cateId;
+            model.sortBy = Sortby;
+            model.SearchTerm = searchterm;
             return View(model);
         }
 

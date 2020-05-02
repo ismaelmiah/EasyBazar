@@ -13,6 +13,7 @@ namespace DataSets.ViewModels
         public List<Product> Products { get; set; }
         public bool IsLatestProduct { get; set; }
         public int? sortBy { get; set; }
+        public string SearchTerm { get; set; }
         public int? categoryid { get; set; }
     }
     public class HomeVM
@@ -24,5 +25,6 @@ namespace DataSets.ViewModels
         public bool IsLatestProduct { get; set; }
         public int? sortBy { get; set; }
         public int? categoryid { get; set; }
+        public string SearchTerm { get; set; }
     }
 }
