@@ -775,6 +775,25 @@
 		});
 	};
 
+
+	function hideLoader() {
+		$(window).on("load", function () {
+			$(".loader").fadeOut();
+			$("#loading-overlay").delay(500).fadeOut('slow', function () {
+				$(this).remove();
+			});
+		});
+	}
+
+	function showLoader() {
+		$(window).on("load", function () {
+			$(".loader").fadeIn();
+			$("#loading-overlay").delay(500).fadeIn('slow', function () {
+				$(this).remove();
+			});
+		});
+	} 
+
 	var swClick = function () {
 		function activeLayout () {
 			$(".switcher-container" ).on( "click", "a.sw-light", function() {
@@ -831,6 +850,8 @@
 	  flatEffectDir();
 	  flatIsotope();
 	  flatCarouselOwl();
-	  flatContentBox();
+		flatContentBox();
+		hideLoader();
+		showLoader();
 	});
 })(jQuery);

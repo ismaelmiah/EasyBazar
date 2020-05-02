@@ -93,20 +93,23 @@
                         <li class="box-login">
                             <a class="icon_login" href="#"></a>
                         </li>
-                        <li class="box-cart nav-top-cart-wrapper">
-                            <a class="icon_cart nav-cart-trigger active" href="#"><span>3</span></a>
-                            <div class="nav-shop-cart">
-                                <div class="widget_shopping_cart_content">
-                                    <div class="woocommerce-min-cart-wrap">
-                                        <ul class="woocommerce-mini-cart cart_list product_list_widget ">
-                                            <li class="woocommerce-mini-cart-item mini_cart_item">
-                                                <span>No Items in Shopping Cart</span>
-                                            </li>
-                                        </ul>
-                                    </div><!-- /.widget_shopping_cart_content -->
-                                </div>
-                            </div><!-- /.nav-shop-cart -->
-                        </li>
+                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart) != null)
+                        {
+                    <li class="box-cart nav-top-cart-wrapper">
+                        <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="icon_cart nav-cart-trigger active">
+                            @{
+                                var count = HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart);
+                            }
+                            <span>@count</span>
+                        </a>
+                    </li>
+                        }
+                        else
+                        {
+                    <li class="box-cart nav-top-cart-wrapper">
+                        <a class="icon_cart nav-cart-trigger"><span>0</span></a>
+                    </li>
+                        }
                     </ul><!-- /.menu-extra -->
                     <div class="nav-wrap">
                         <nav id="mainnav" class="mainnav">
@@ -118,7 +121,7 @@
                                     <a asp-action="Index" asp-area="Customer" asp-controller="Shop">SHOP</a>
                                 </li>
                                 <li>
-                                    <a asp-action="Checkout" asp-area="Customer" asp-controller="Shop">CHECKOUT</a>
+                                    <a asp-action="Summary" asp-area="Customer" asp-controller="Cart">CHECKOUT</a>
                                 </li>
                             </ul>
                         </nav><!-- /.mainnav -->
