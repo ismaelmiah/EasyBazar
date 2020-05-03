@@ -88,15 +88,15 @@ namespace Easy_Bazar.Areas.Customer.Controllers
 
             if (cateId.HasValue)
             {
-                Products = Products.Where(x=>x.CategoryID==cateId.Value).ToList();
+                Products = Products.Where(x => x.CategoryID == cateId.Value).ToList();
             }
             if (!string.IsNullOrEmpty(searchterm))
             {
-                Products = Products.Where(x=>x.Name.ToLower().Contains(searchterm.ToLower())).ToList();
+                Products = Products.Where(x => x.Name.ToLower().Contains(searchterm.ToLower())).ToList();
             }
             if (minPrice.HasValue)
             {
-                Products = Products.Where(x=>x.Price>=minPrice.Value).ToList();
+                Products = Products.Where(x => x.Price >= minPrice.Value).ToList();
             }
             if (maxPrice.HasValue)
             {
@@ -110,17 +110,17 @@ namespace Easy_Bazar.Areas.Customer.Controllers
                 switch (sort)
                 {
                     case SortByEnums.Default:
-                        Products = Products.OrderByDescending(x=>x.ID).ToList();
+                        Products = Products.OrderByDescending(x => x.ID).ToList();
                         break;
                     case SortByEnums.Popularity:
                         Products = Products.ToList();
                         //Popularity Need to set
                         break;
                     case SortByEnums.PricelowToHigh:
-                        Products = Products.OrderBy(x=>x.Price).ToList();
+                        Products = Products.OrderBy(x => x.Price).ToList();
                         break;
                     case SortByEnums.PriceHighToLow:
-                        Products = Products.OrderByDescending(x=>x.Price).ToList();
+                        Products = Products.OrderByDescending(x => x.Price).ToList();
                         break;
                 }
             }
@@ -139,7 +139,49 @@ namespace Easy_Bazar.Areas.Customer.Controllers
             return View(model);
         }
 
+        [Authorize]
+        public IActionResult AddToCart(int id)
+        {
+            try
+            {
+                
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                var cartObj = new ShoppingCart()
+                {
+                    ApplicationUserId = claim.Value,
+                    ProductId = id
+                };
 
+
+                ShoppingCart fromDb = _uow.ShoppingCart.GetFirstOrDefault(
+                    s => s.ApplicationUserId == cartObj.ApplicationUserId
+                    && s.ProductId == cartObj.ProductId,
+                    includeProperties: "Product");
+
+                if (fromDb == null)
+                {
+                    //Insert
+                    _uow.ShoppingCart.Add(cartObj);
+                }
+                else
+                {
+                    //Update
+                    fromDb.Count += cartObj.Count;
+                }
+
+                _uow.Save();
+
+                var shoppingCount = _uow.ShoppingCart.GetAll(a => a.ApplicationUserId == cartObj.ApplicationUserId).ToList().Count();
+
+                HttpContext.Session.SetInt32(ProjectConstant.shoppingCart, shoppingCount);
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                return Json(false);
+            }
+        }
         public IActionResult Details(int id)
         {
             var product = _uow.Product.GetFirstOrDefault(p => p.ID == id, includeProperties: "Category");

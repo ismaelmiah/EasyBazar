@@ -4,29 +4,28 @@
     <ul class="product style3">
         @foreach (var item in Model.Products)
         {
-            <li class="product-item">
-                <div class="product-thumb clearfix">
-                    <a asp-action="Details" asp-route-id="@item.ID">
-                        <img src="@item.ImageURL" alt="image">
-                    </a>
-                    <span class="new sale">Sale</span>
+        <li class="product-item">
+            <div class="product-thumb clearfix">
+                <a asp-action="Details" asp-route-id="@item.ID">
+                    <img src="@item.ImageURL" alt="image">
+                </a>
+                <span class="new sale">Sale</span>
+            </div>
+            <div class="product-info clearfix">
+                <span class="product-title">@item.Name</span>
+                <div class="price">
+                    <del>
+                        <span class="regular">@item.ListPrice.ToString("c")</span>
+                    </del>
+                    <ins>
+                        <span class="amount">@item.Price.ToString("c")</span>
+                    </ins>
                 </div>
-                <div class="product-info clearfix">
-                    <span class="product-title">@item.Name</span>
-                    <div class="price">
-                        <del>
-                            <span class="regular">@item.ListPrice.ToString("c")</span>
-                        </del>
-                        <ins>
-                            <span class="amount">@item.Price.ToString("c")</span>
-                        </ins>
-                    </div>
-                </div>
-                <div class="add-to-cart text-center">
-                    <a asp-action="Details" asp-route-id="@item.ID">ADD TO CART</a>
-                </div>
-                <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-            </li>
+            </div>
+
+            <button class="add-to-cart addtocart" product_id="@item.ID">ADD TO CART</button>
+            <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
+        </li>
 
         }
     </ul><!-- /.product -->

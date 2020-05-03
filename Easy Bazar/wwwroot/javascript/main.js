@@ -792,7 +792,7 @@
 				$(this).remove();
 			});
 		});
-	} 
+	}
 
 	var swClick = function () {
 		function activeLayout () {
@@ -855,3 +855,23 @@
 		showLoader();
 	});
 })(jQuery);
+
+
+$(".addtocart").click(function () {
+    var productid = $(this).attr('product_id');
+	$.ajax({
+		type: 'GET',
+		url: 'https://localhost:44380/Customer/Shop/AddToCart',
+		data: { id: productid }
+	}).done(function (result) {
+		if (result) {
+			toastr.success("Add To Cart Success");
+		}
+		else {
+			toastr.warning("An Error Occurred While Processing Your Transaction!");
+		}
+	}).fail(function (xhr) {
+		location.href = 'https://localhost:44380/Identity/Account/Login';
+	});
+})
+

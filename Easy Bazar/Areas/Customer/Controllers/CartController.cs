@@ -9,6 +9,7 @@ using DataSets.Entity;
 using DataSets.Interfaces;
 using DataSets.Utility;
 using DataSets.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -34,7 +35,7 @@ namespace Easy_Bazar.Areas.Customer.Controllers
 
         [BindProperty]
         public ShoppingCartVM ShoppingCartVM { get; set; }
-
+        [Authorize]
         public IActionResult Index()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;

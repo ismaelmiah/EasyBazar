@@ -93,22 +93,16 @@
                         <li class="box-login">
                             <a class="icon_login" href="#"></a>
                         </li>
-                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart) != null)
+                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart) != null && HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart)>0)
                         {
-                    <li class="box-cart nav-top-cart-wrapper">
-                        <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="icon_cart nav-cart-trigger active">
-                            @{
-                                var count = HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart);
-                            }
-                            <span>@count</span>
-                        </a>
-                    </li>
-                        }
-                        else
-                        {
-                    <li class="box-cart nav-top-cart-wrapper">
-                        <a class="icon_cart nav-cart-trigger"><span>0</span></a>
-                    </li>
+                            <li class="box-cart nav-top-cart-wrapper">
+                                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="icon_cart nav-cart-trigger active">
+                                    @{
+                                        var count = HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart);
+                                    }
+                                    <span>@count</span>
+                                </a>
+                            </li>
                         }
                     </ul><!-- /.menu-extra -->
                     <div class="nav-wrap">
