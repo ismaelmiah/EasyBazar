@@ -142,6 +142,8 @@ namespace Easy_Bazar.Areas.Customer.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [Authorize]
         public IActionResult Summary()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
