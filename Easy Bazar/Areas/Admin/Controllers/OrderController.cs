@@ -16,7 +16,7 @@ using Stripe;
 namespace Easy_Bazar.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = ProjectConstant.Role_Admin)]
+    [Authorize(Roles = ProjectConstant.Role_Admin)]
     public class OrderController : Controller
     {
         private readonly IUnitOfWork _uow;

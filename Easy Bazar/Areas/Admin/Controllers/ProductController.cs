@@ -9,10 +9,13 @@ using DataSets.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using DataSets.Utility;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Easy_Bazar.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = ProjectConstant.Role_Admin)]
     public class ProductController : Controller
     {
         #region Variables

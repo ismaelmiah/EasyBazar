@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewData["Title"] = "Rolelist";
+}
+
+<div class="row">
+    <div class="col-6">
+        <h1 class="text-info">Role List</h1>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i> &nbsp; New Role</a>
+    </div>
+</div>
+
+<div>
+    <table class="table table-striped border" id="DT_load">
+        <thead>
+            <tr class="table-info">
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in ViewBag.Role)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td style="width: 150px">
+                        <div class="btn-group">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#DT_load').DataTable();
+        });
+        $(function () {
+            var save = '@TempData["save"]'
+            if (save != null && save != '') {
+                if (save == "Delete") {
+                    alertify.error('Role has been Deleted Successfully');
+                }
+                else if (save == "Update") {
+                    alertify.warning('Role has been Updated Successfully');
+                }
+                else alertify.success(save);
+            }
+
+        })
+    </script>
+}
+

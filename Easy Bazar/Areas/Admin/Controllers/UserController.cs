@@ -15,9 +15,12 @@ using Microsoft.Extensions.Logging;
 namespace Easy_Bazar.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = ProjectConstant.Role_Admin)]
     public class UserController : Controller
     {
         #region Variables
+        RoleManager<IdentityRole> _roleManager;
+        UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _db;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
@@ -25,20 +28,20 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         #endregion
 
         #region CTOR
-        public UserController(ApplicationDbContext db, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger)
+        public UserController(ApplicationDbContext db, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, RoleManager<IdentityRole>roleManager,UserManager<ApplicationUser>userManager)
         {
             _db = db;
             _signInManager = signInManager;
             _logger = logger;
+            _roleManager = roleManager;
+            _userManager = userManager;
         }
         #endregion
 
         #region Actions
-        [Authorize(Roles = "Admin")]
-
         public IActionResult Index()
         {
-            return View();
+            return PartialView();
         }
         #endregion
 
@@ -53,8 +56,6 @@ namespace Easy_Bazar.Areas.Admin.Controllers
 
 
         #region API CALLS
-        [Authorize(Roles = "Admin")]
-
         public IActionResult GetAll()
         {
             var userList = _db.ApplicationUsers.ToList();
@@ -70,8 +71,6 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
-
         public IActionResult LockUnlock([FromBody] string id)
         {
             var data = _db.ApplicationUsers.FirstOrDefault(u => u.Id == id);
@@ -88,5 +87,13 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         }
 
         #endregion
+
+        public IActionResult Rolelist()
+        {
+            var roles = _roleManager.Roles.ToList();
+            ViewBag.Role = roles;
+            return View();
+        }
+
     }
 }

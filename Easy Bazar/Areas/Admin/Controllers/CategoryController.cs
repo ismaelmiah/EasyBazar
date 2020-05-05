@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 using DataSets.Data;
 using DataSets.Entity;
 using DataSets.Interfaces;
+using DataSets.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Easy_Bazar.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = ProjectConstant.Role_Admin)]
     public class CategoryController : Controller
     {
         #region Variables
