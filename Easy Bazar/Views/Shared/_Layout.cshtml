@@ -1,8 +1,18 @@
 ﻿@using System.IO
 @using DataSets.Utility
 @using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@using DataSets.Entity;
+
 @inject IHttpContextAccessor HttpContextAccessor
 
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    var count = HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart);
+    var user = await UserManager.GetUserAsync(User);
+    var profileName = user?.Name;
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +62,6 @@
     <link rel="stylesheet" type="text/css" href="~/css/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="~/css/dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="~/css/toastr.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/css/font-awesome.css" />
     <link rel="stylesheet" type="text/css" href="~/css/jstarbox.css" />
 
     <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -73,8 +82,8 @@
 
     <!-- Boxed -->
     <div class="boxed">
-        
-            <div id="site-header-wrap">
+
+        <div id="site-header-wrap">
             <!-- Header -->
             <header id="header" class="header header-container clearfix">
                 <div class="container clearfix" id="site-header-inner">
@@ -85,33 +94,46 @@
                     </div><!-- /.logo -->
                     <div class="mobile-button"><span></span></div>
                     <ul class="menu-extra">
-                        <li class="box-search">
-                            <a class="icon_search header-search-icon" href="#"></a>
-                            <form role="search" method="get" class="header-search-form" action="#">
-                                <input type="text" value="" name="s" class="header-search-field" placeholder="Search...">
-                                <button type="submit" class="header-search-submit" title="Search">Search</button>
-                            </form>
-                        </li>
-                        <li class="box-login">
-                            <a class="icon_login"></a>
-                        </li>
-                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart) != null && HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart) > 0)
-                        {
-                            <li class="box-cart nav-top-cart-wrapper">
-                                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="icon_cart nav-cart-trigger active">
-                                    @{
-                                        var count = HttpContextAccessor.HttpContext.Session.GetInt32(ProjectConstant.shoppingCart);
-                                    }
+
+                        <li class="box-cart nav-top-cart-wrapper">
+                            <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="icon_cart nav-cart-trigger active">
+                                @if (count.HasValue)
+                                {
                                     <span>@count</span>
-                                </a>
-                            </li>
-                        }
-                        @if (User.IsInRole(ProjectConstant.Role_Admin))
+                                }
+                                else
+                                {
+                                    <span>0</span>
+                                }
+                            </a>
+                        </li>
+
+                        @if (SignInManager.IsSignedIn(User))
                         {
-                            <li>
-                                <a asp-action="Index" asp-area="Admin" asp-controller="Administration">Admin Panel</a>
+                            <li class="nav-item">
+                                <a>Hi @profileName</a>
+                            </li>
+                            @if (User.IsInRole(ProjectConstant.Role_Admin))
+                            {
+                                <li>
+                                    <a asp-action="Index" asp-area="Admin" asp-controller="Administration"><i style="margin-right: 5px" class="fas fa-users-cog"></i>Admin Panel</a>
+                                </li>
+                            }
+                            <li class="box-login">
+                                <a asp-action="Logout" asp-controller="User" asp-area="Admin"><i style="margin-right: 5px" class="fas fa-sign-out-alt"></i>Logout</a>
                             </li>
                         }
+                        else
+                        {
+
+                            <li class="box-login">
+                                <a asp-area="Identity" asp-page="/Account/Login"><i class="icon_login"></i>Login</a>
+                            </li>
+                            <li class="box-login">
+                                <a asp-area="Identity" asp-page="/Account/Register"><i style="margin-right: 5px" class="fas fa-user-plus"></i>Register</a>
+                            </li>
+                        }
+
                     </ul><!-- /.menu-extra -->
                     <div class="nav-wrap">
                         <nav id="mainnav" class="mainnav">
@@ -131,8 +153,8 @@
                 </div><!-- /.container-fluid -->
             </header><!-- /header -->
         </div><!-- /#site-header-wrap -->
-        
-        
+
+
         @RenderBody()
 
         <!-- END ICON BOX -->

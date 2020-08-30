@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DataSets.Data;
+﻿using DataSets.Data;
 using DataSets.Entity;
 using DataSets.Utility;
+using DataSets.ViewModels;
 using Easy_Bazar.Areas.Identity.Pages.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Easy_Bazar.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = ProjectConstant.Role_Admin)]
+    [Authorize]
     public class UserController : Controller
     {
         #region Variables
@@ -28,7 +28,7 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         #endregion
 
         #region CTOR
-        public UserController(ApplicationDbContext db, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, RoleManager<IdentityRole>roleManager,UserManager<ApplicationUser>userManager)
+        public UserController(ApplicationDbContext db, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _db = db;
             _signInManager = signInManager;
@@ -45,13 +45,12 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         }
         #endregion
 
-        [Authorize]
         public async Task<IActionResult> Logout()
         {
             HttpContext.Session.SetInt32(ProjectConstant.shoppingCart, 0);
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            return RedirectToAction("Index", "Home", new { area = "Customer"});
+            return RedirectToAction("Index", "Home", new { area = "Customer" });
         }
 
 
@@ -93,6 +92,53 @@ namespace Easy_Bazar.Areas.Admin.Controllers
             var roles = _roleManager.Roles.ToList();
             ViewBag.Role = roles;
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Upsert(string? id)
+        {
+            RoleVM roleVM = new RoleVM();
+            if (string.IsNullOrEmpty(id))
+            {
+                //Create new role
+                return View(roleVM);
+            }
+            // This for Update
+            var role = await _roleManager.FindByIdAsync(id);
+            if (role == null)
+            {
+                return NotFound();
+            }
+            roleVM.roleid = role.Id;
+            roleVM.rolename = role.Name;
+            return View(roleVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Upsert(RoleVM roleVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var role = new IdentityRole
+                {
+                    Name = roleVM.rolename
+                };
+                var isExist = await _roleManager.RoleExistsAsync(role.Name);
+                if (isExist)
+                {
+                    ViewBag.msg = "This role is already exist";
+                    ViewBag.name = roleVM.rolename;
+                    return View();
+                }
+                var result = await _roleManager.CreateAsync(role);
+                if (result.Succeeded)
+                {
+                    TempData["save"] = "Role has been saved successfully";
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return View(roleVM);
         }
 
     }

@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace DataSets.Entity
 {
@@ -13,7 +10,7 @@ namespace DataSets.Entity
         public string Name { get; set; }
         [Required]
         [Display(Name = "Phone Number")]
-        public string PhoneNumber { get; set; }
+        public override string PhoneNumber { get; set; }
 
         [Required]
         [Display(Name = "Street Address")]

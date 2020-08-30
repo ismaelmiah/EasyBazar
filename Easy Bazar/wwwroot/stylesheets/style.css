@@ -1015,7 +1015,6 @@ h6 { font-size: 14px; line-height: 48px; font-weight: 400;}
 
 .menu-extra > li {
 	display: inline-block;
-	line-height: 88px;
 	position: relative;
 	-webkit-transition: all 0.3s ease-in-out;
 	   -moz-transition: all 0.3s ease-in-out;
@@ -1024,7 +1023,7 @@ h6 { font-size: 14px; line-height: 48px; font-weight: 400;}
 			transition: all 0.3s ease-in-out;
 }
 
-.menu-extra li a {
+.menu-extra .box-cart a {
 	margin: 0px 2.5px;
 	width: 40px;
 	height: 40px;
@@ -1038,7 +1037,7 @@ h6 { font-size: 14px; line-height: 48px; font-weight: 400;}
 	background: transparent;
 }
 
-.menu-extra li a span {
+.menu-extra .box-cart a span {
 	width: 15px;
 	height: 15px;
 	font-size: 10px;
@@ -1054,12 +1053,12 @@ h6 { font-size: 14px; line-height: 48px; font-weight: 400;}
 	display: inline-block;
 }
 
-.menu-extra li a.active {
+.menu-extra .box-cart a.active {
 	background: #eeeeee;
 	color: #333;
 }
 
-.menu-extra li a:hover {
+.menu-extra .box-cart a:hover {
 	background: #eeeeee;
 	color: #f63440;
 }
@@ -2968,4 +2967,21 @@ article .more-link a:hover:after {
 	-webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.02);
 	   -moz-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.02);
 			box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.02);
+}
+
+
+.box-login a {
+	padding: 10px;
+	text-align: center;
+	font-size: 15px;
+	color: #333333;
+	display: inline-block;
+}
+
+.box-login a:hover {
+	color: #f63440;
+}
+
+.box-login a i{
+	margin: 0 5px;
 }

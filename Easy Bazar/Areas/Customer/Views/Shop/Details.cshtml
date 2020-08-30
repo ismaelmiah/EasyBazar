@@ -24,19 +24,15 @@
     <section class="flat-row main-shop shop-detail">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 m-auto">
                     <div class="wrap-flexslider">
                         <div class="inner">
-                            <div class="flexslider style-1 has-relative">
-                                <ul class="slides">
-                                    <li data-thumb="@Model.Product.ImageURL">
-                                        <img src="@Model.Product.ImageURL" alt="Image">
-                                        <div class="flat-icon style-1">
-                                            <a href="@Model.Product.ImageURL" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div><!-- /.flexslider -->
+                            <div style="margin: 0px 100px">
+                                <img src="@Model.Product.ImageURL" alt="Image">
+                                <div class="flat-icon style-1">
+                                    <a href="@Model.Product.ImageURL" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div><!-- /.col-md-6 -->
