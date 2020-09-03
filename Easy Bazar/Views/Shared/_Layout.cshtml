@@ -111,7 +111,7 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a>Hi @profileName</a>
+                                <a asp-action="Profile" asp-controller="User" asp-area="Admin">Hi @profileName</a>
                             </li>
                             @if (User.IsInRole(ProjectConstant.Role_Admin))
                             {

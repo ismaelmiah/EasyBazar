@@ -1,0 +1,119 @@
+﻿@using DataSets.Entity
+@model ApplicationUser
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row m-5">
+        <div class="col-md-3">
+            <div class="profile-info">
+                <h2>Manage Account</h2>
+                <ul>
+                    <li><a class="pro-edit"> My Profile </a></li>
+                    <li><a class="pro-edit">Address Book</a></li>
+                </ul>
+            </div>
+            <div class="order-info">
+                <h2>My Order</h2>
+                <ul>
+                    <li>My Order</li>
+                    <li>Cancel Order</li>
+                </ul>
+            </div>
+            <h2>My Reviews</h2>
+        </div>
+        <div class="col-md-9">
+            <div class="profile">
+                <div class="row">
+                    <div class="personal col-md-4">
+                        <h4 style="font-weight: 700">Personal Profile | <a class="pro-edit" data-toggle="modal" data-target="#editpro">Edit</a></h4>
+                        <p>@Model.Name</p>
+                        <p>@Model.UserName</p>
+                    </div>
+                    <div class="address-info col-md-8">
+                        <h4 style="font-weight: 700">Address Book | <a data-toggle="modal" class="pro-edit" data-target="#exampleAddress">Edit</a></h4>
+                        <h5 style="font-weight: 600">@Model.Name</h5>
+                        <p>Post: @Model.PostalCode <br /> Street: @Model.StreetAddress</p>
+                    </div>
+                </div>
+            </div>
+            <div class="recent-order">
+                <h2 style="font-weight: 600; padding: 10px 0px">Recent Orders</h2>
+                <table class="table table-bordered table-striped text-center">
+                    <thead class="text-capitalize">
+                        <tr>
+                            <td>Order No</td>
+                            <td>Order Date</td>
+                            <td>Item</td>
+                            <td>Total</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>48585978799</td>
+                            <td>10/11/2017</td>
+                            <td>Walton S7 Pro</td>
+                            <td>20500</td>
+                            <td><a href="#">Manage</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editpro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Profile Edit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Name: </label>
+                                <input type="text" class="form-control" value="@Model.Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Username: </label>
+                                <input type="text" disabled class="form-control" value="@Model.UserName">
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Email: </label>
+                                <input type="text" disabled class="form-control" value="@Model.Email">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Post Code: </label>
+                                <input type="text" class="form-control" value="@Model.PostalCode">
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">City: </label>
+                                <input type="text" class="form-control" value="@Model.City">
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Phone: </label>
+                                <input type="text" class="form-control" value="@Model.PhoneNumber">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Update Profile</button>
+            </div>
+        </div>
+    </div>
+</div>

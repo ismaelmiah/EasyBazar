@@ -2985,3 +2985,13 @@ article .more-link a:hover:after {
 .box-login a i{
 	margin: 0 5px;
 }
+
+.order-info li, .profile-info li {
+	margin-left: 20px;
+	padding: 5px 10px;
+}
+.pro-edit:hover {
+	color: #f63440 !important;
+	cursor: pointer;
+}
+

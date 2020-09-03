@@ -45,6 +45,12 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         }
         #endregion
 
+        public IActionResult Profile()
+        {
+            var userProfile = _userManager.GetUserAsync(User).Result;
+            return View(userProfile);
+        }
+
         public async Task<IActionResult> Logout()
         {
             HttpContext.Session.SetInt32(ProjectConstant.shoppingCart, 0);
