@@ -12,8 +12,8 @@
             <div class="profile-info">
                 <h2>Manage Account</h2>
                 <ul>
-                    <li><a class="pro-edit"> My Profile </a></li>
-                    <li><a class="pro-edit">Address Book</a></li>
+                    <li><a class="pro-edit" data-toggle="modal" data-target="#profile"> My Profile </a></li>
+                    <li><a data-toggle="modal" data-target="#address" class="pro-edit">Address Book</a></li>
                 </ul>
             </div>
             <div class="order-info">
@@ -34,7 +34,7 @@
                         <p>@Model.UserName</p>
                     </div>
                     <div class="address-info col-md-8">
-                        <h4 style="font-weight: 700">Address Book | <a data-toggle="modal" class="pro-edit" data-target="#exampleAddress">Edit</a></h4>
+                        <h4 style="font-weight: 700">Address Book | <a data-toggle="modal" class="pro-edit" data-target="#address-form">Edit</a></h4>
                         <h5 style="font-weight: 600">@Model.Name</h5>
                         <p>Post: @Model.PostalCode <br /> Street: @Model.StreetAddress</p>
                     </div>
@@ -95,10 +95,6 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Post Code: </label>
-                                <input type="text" class="form-control" value="@Model.PostalCode">
-                            </div>
-                            <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">City: </label>
                                 <input type="text" class="form-control" value="@Model.City">
                             </div>
@@ -113,6 +109,109 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Update Profile</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Profile Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Name: @Model.Name</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Username: @Model.UserName</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Email: @Model.Email</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Post Code: @Model.PostalCode</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">City: @Model.City</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Phone: @Model.PhoneNumber</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="address-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Address</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Postal: </label>
+                                <input type="text" value="@Model.PostalCode" />
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Address: </label>
+                                <input type="text" value="@Model.StreetAddress" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="address" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Address</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Name: @Model.Name</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Address: @Model.StreetAddress - @Model.PostalCode</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Update Profile</button>
+
             </div>
         </div>
     </div>
