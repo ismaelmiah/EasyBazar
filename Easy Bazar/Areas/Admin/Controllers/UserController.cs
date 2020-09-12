@@ -45,9 +45,24 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         }
         #endregion
 
+        [HttpGet]
         public IActionResult Profile()
         {
             var userProfile = _userManager.GetUserAsync(User).Result;
+            return View(userProfile);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Profile(ApplicationUser user)
+        {
+            var userProfile = _userManager.GetUserAsync(User).Result;
+            userProfile.Name = user.Name;
+            userProfile.City = user.City;
+            userProfile.PostalCode = user.PostalCode;
+            userProfile.StreetAddress = user.StreetAddress;
+            userProfile.PhoneNumber = user.PhoneNumber;
+            _db.ApplicationUsers.Update(userProfile);
+            _db.SaveChanges();
             return View(userProfile);
         }
 
