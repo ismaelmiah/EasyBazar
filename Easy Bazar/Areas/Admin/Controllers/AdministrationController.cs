@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DataSets.Utility;
+﻿using DataSets.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +10,7 @@ namespace Easy_Bazar.Areas.Admin.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View("Index", "_AdminLTE");
         }
         public IActionResult Userlist()
         {
