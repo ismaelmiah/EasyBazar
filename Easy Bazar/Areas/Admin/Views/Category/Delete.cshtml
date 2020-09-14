@@ -1,7 +1,7 @@
 ﻿@model DataSets.Entity.Category
 @{
     ViewData["Title"] = "Upsert";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLTE.cshtml";
     var title = "Delete Category";
 }
 
@@ -60,13 +60,13 @@
         @if (Model.ID != 0)
         {
             <div class="col-3 offset-1 pt-4">
-                <img src="@Model.ImageURL" width="100%" style="border-radius:3px;border:1px solid gray;" />
+                <img src="@Model.ImageURL" style="border-radius:3px;border:1px solid gray;width:100%;" />
             </div>
         }
         else
         {
             <div class="col-3 offset-1 pt-4">
-                <img id="imageupload" src="~/images/noImage.png" width="100%" style="border-radius:3px;border:1px solid gray;" />
+                <img id="imageupload" src="~/images/noImage.png" style="border-radius:3px;border:1px solid gray;width:100%" />
             </div>
         }
     </div>

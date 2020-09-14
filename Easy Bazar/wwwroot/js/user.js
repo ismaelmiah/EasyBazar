@@ -9,6 +9,7 @@ function loadDataTable() {
         "ajax": {
             "url": "/Admin/User/GetAll"
         },
+        "retrieve": true,
         "columns": [
             { "data": "name", "width": "15%" },
             { "data": "email", "width": "15%" },

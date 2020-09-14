@@ -10,14 +10,15 @@ function loadDataTable() {
         "ajax": {
             "url": "/Admin/Product/GetAll"
         },
+        "retrieve": true,
         "columns": [
             { "data": "name", "width": "15%" },
             { "data": "description", "width": "15%" },
             { "data": "category.name", "width": "15%" },
             { "data": "listPrice", "width": "15%" },
-             { "data": "price", "width": "10%" },
-             { "data": "price50", "width": "10%" },
-             { "data": "price100", "width": "10%" },
+            { "data": "price", "width": "10%" },
+            { "data": "price50", "width": "10%" },
+            { "data": "price100", "width": "10%" },
             {
                 "data": "id",
                 "render": function (data) {

@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using DataSets.ViewModels;
-using DataSets.Entity;
+﻿using DataSets.Entity;
 using DataSets.Interfaces;
+using DataSets.Utility;
+using DataSets.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using DataSets.Utility;
-using Microsoft.AspNetCore.Authorization;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace Easy_Bazar.Areas.Admin.Controllers
 {

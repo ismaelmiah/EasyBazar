@@ -19,12 +19,11 @@ namespace Easy_Bazar.Areas.Admin.Controllers
     public class UserController : Controller
     {
         #region Variables
-        RoleManager<IdentityRole> _roleManager;
-        UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _db;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
-
         #endregion
 
         #region CTOR
@@ -116,7 +115,7 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Upsert(string? id)
+        public async Task<IActionResult> Upsert(string id)
         {
             RoleVM roleVM = new RoleVM();
             if (string.IsNullOrEmpty(id))
@@ -156,7 +155,7 @@ namespace Easy_Bazar.Areas.Admin.Controllers
                 if (result.Succeeded)
                 {
                     TempData["save"] = "Role has been saved successfully";
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Rolelist));
                 }
             }
             return View(roleVM);

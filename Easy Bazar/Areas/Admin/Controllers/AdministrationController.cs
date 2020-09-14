@@ -14,7 +14,7 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         }
         public IActionResult Userlist()
         {
-            return PartialView();
+            return View("Index", "_AdminLTE");
         }
     }
 }
