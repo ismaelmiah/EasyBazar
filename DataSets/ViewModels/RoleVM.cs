@@ -6,7 +6,7 @@ namespace DataSets.ViewModels
 {
     public class RoleVM
     {
-        public string roleid { get; set; };
-        public string rolename { get; set; };
+        public string roleid { get; set; }
+        public string rolename { get; set; }
     }
 }
