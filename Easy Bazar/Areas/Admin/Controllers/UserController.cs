@@ -105,12 +105,16 @@ namespace Easy_Bazar.Areas.Admin.Controllers
             return Json(new { success = true, message = "Operation Successfully" });
         }
 
+        public IActionResult GetAllRule()
+        {
+            var roles = _roleManager.Roles.ToList();
+            return Json(new { data = roles });
+        }
+
         #endregion
 
         public IActionResult Rolelist()
         {
-            var roles = _roleManager.Roles.ToList();
-            ViewBag.Role = roles;
             return View();
         }
 
