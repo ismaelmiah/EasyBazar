@@ -11,10 +11,10 @@ function loadDataTable() {
         },
         "retrieve": true,
         "columns": [
-            { "data": "name", "width": "15%" },
-            { "data": "email", "width": "15%" },
-            { "data": "phoneNumber", "width": "15%" },
-            { "data": "role", "width": "15%" },
+            { "data": "fullName", "width": "15%" },
+            { "data": "userName", "width": "15%" },
+            { "data": "phone", "width": "15%" },
+            { "data": "roleName", "width": "15%" },
             {
                 "data":
                 {

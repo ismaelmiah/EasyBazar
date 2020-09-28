@@ -44,27 +44,8 @@ namespace Easy_Bazar.Areas.Admin.Controllers
             return Json(new { data = allObj });
         }
 
-
-        //[HttpGet]
-        //public IActionResult Delete(int id)
-        //{
-        //    var deleteData = _uow.Product.Get(id);
-        //    if (deleteData == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var listobj = _uow.Category.GetAll().ToList();
-        //    var ok = listobj.FirstOrDefault(x => x.ID == deleteData.CategoryID).Name;
-        //    //db.CategoryEntities.Where(x=>x.ID==deleteData.CategoryID);
-        //    TempData["CategoryName"] = ok;
-        //    if (deleteData == null)
-        //        return Json(new { success = false, message = "Data Not Found!" });
-        //    return View(deleteData); //Json(new { success = true, message = "Delete Operation Successfully" });
-        //}
-
         [HttpDelete]
-        [ActionName("Delete")]
-        public IActionResult DeleteData(int id)
+        public IActionResult Delete(int id)
         {
             var deleteData = _uow.Product.Get(id);
             if (deleteData == null)

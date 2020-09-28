@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Easy_Bazar.Areas.Admin.Controllers
 {
@@ -40,7 +41,7 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         #region Actions
         public IActionResult Index()
         {
-            return PartialView();
+            return View();
         }
         #endregion
 
@@ -77,16 +78,26 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         #region API CALLS
         public IActionResult GetAll()
         {
-            var userList = _db.ApplicationUsers.ToList();
-            var userRole = _db.UserRoles.ToList();
-            var roles = _db.Roles.ToList();
+            //var userList = _db.ApplicationUsers.ToList();
+            //var userRole = _db.UserRoles.ToList();
+            //var roles = _db.Roles.ToList();
 
-            foreach (var user in userList)
-            {
-                var roleId = userRole.FirstOrDefault(u => u.UserId == user.Id).RoleId;
-                user.Role = roles.FirstOrDefault(u => u.Id == roleId).Name;
-            }
-            return Json(new { data = userList });
+            //foreach (var user in userList)
+            //{
+            //    var roleId = userRole.FirstOrDefault(u => u.UserId == user.Id).RoleId;
+            //    user.Role = roles.FirstOrDefault(u => u.Id == roleId).Name;
+            //}
+            var result = from ur in _db.UserRoles
+                join r in _db.Roles on ur.RoleId equals r.Id
+                join a in _db.ApplicationUsers on ur.UserId equals a.Id
+                select new UserRoleMapping()
+                {
+                    FullName = a.Name,
+                    Phone = a.PhoneNumber,
+                    UserName = a.UserName,
+                    RoleName = r.Name
+                };
+            return Json(new { data = result });
         }
 
         [HttpPost]
@@ -116,6 +127,48 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         public IActionResult Rolelist()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Assign()
+        {
+            ViewData["UserId"] = new SelectList(_db.ApplicationUsers.Where(x => x.LockoutEnd < DateTime.Now || x.LockoutEnd == null).ToList(), "Id", "UserName");
+            ViewData["RoleId"] = new SelectList(_roleManager.Roles.ToList(), "Name", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Assign(RoleUserVm roleUser)
+        {
+            var user = _db.ApplicationUsers.FirstOrDefault(x => x.Id == roleUser.UserId);
+            var isExist = await _userManager.IsInRoleAsync(user, roleUser.Role);
+            if (isExist)
+            {
+                ViewBag.msg = "This Role is already assigned for this User";
+                ViewData["UserId"] = new SelectList(_db.ApplicationUsers.Where(x => x.LockoutEnd < DateTime.Now || x.LockoutEnd == null).ToList(), "Id", "UserName");
+                ViewData["RoleId"] = new SelectList(_roleManager.Roles.ToList(), "Name", "Name");
+
+                return View();
+            }
+            var role = await _userManager.AddToRoleAsync(user, roleUser.Role);
+            if (role.Succeeded)
+            {
+                TempData["save"] = "Role has been Assigned";
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var role = await _roleManager.FindByIdAsync(id);
+            if (role == null)
+            {
+                return NotFound();
+            }
+            await _roleManager.DeleteAsync(role);
+            return Json(new { success = true, message = "Delete Operation Successfully" });
         }
 
         [HttpGet]
