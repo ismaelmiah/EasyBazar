@@ -119,7 +119,7 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Upsert(string id)
+        public async Task<IActionResult> Upsert(string? id)
         {
             RoleVM roleVM = new RoleVM();
             if (string.IsNullOrEmpty(id))
@@ -140,29 +140,46 @@ namespace Easy_Bazar.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Upsert(RoleVM roleVM)
+        public async Task<IActionResult> Upsert(RoleVM roleVm)
         {
             if (ModelState.IsValid)
             {
-                var role = new IdentityRole
-                {
-                    Name = roleVM.rolename
-                };
-                var isExist = await _roleManager.RoleExistsAsync(role.Name);
+
+                var isExist = await _roleManager.RoleExistsAsync(roleVm.rolename);
                 if (isExist)
                 {
                     ViewBag.msg = "This role is already exist";
-                    ViewBag.name = roleVM.rolename;
+                    ViewBag.name = roleVm.rolename; 
                     return View();
                 }
-                var result = await _roleManager.CreateAsync(role);
-                if (result.Succeeded)
+
+                if (roleVm.roleid == null)
                 {
-                    TempData["save"] = "Role has been saved successfully";
-                    return RedirectToAction(nameof(Rolelist));
+                    var role = new IdentityRole
+                    {
+                        Name = roleVm.rolename
+                    }; 
+                    var result = await _roleManager.CreateAsync(role);
+                    if (result.Succeeded)
+                    {
+                        TempData["save"] = "Role has been saved successfully";
+                        return RedirectToAction(nameof(Rolelist));
+                    }
+                }
+                else
+                {
+                    var role = await _roleManager.FindByIdAsync(roleVm.roleid);
+                    role.Name = roleVm.rolename;
+                    var result = await _roleManager.UpdateAsync(role);
+                    if (result.Succeeded)
+                    {
+                        TempData["save"] = "Update";
+                        return RedirectToAction(nameof(Rolelist));
+                    }
+                    return View();
                 }
             }
-            return View(roleVM);
+            return View(roleVm);
         }
 
     }
