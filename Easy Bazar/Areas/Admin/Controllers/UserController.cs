@@ -12,6 +12,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Easy_Bazar.Areas.Admin.Controllers
 {
@@ -140,21 +142,30 @@ namespace Easy_Bazar.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Assign(RoleUserVm roleUser)
         {
-            var user = _db.ApplicationUsers.FirstOrDefault(x => x.Id == roleUser.UserId);
-            var isExist = await _userManager.IsInRoleAsync(user, roleUser.Role);
-            if (isExist)
+            if (ModelState.IsValid)
             {
-                ViewBag.msg = "This Role is already assigned for this User";
-                ViewData["UserId"] = new SelectList(_db.ApplicationUsers.Where(x => x.LockoutEnd < DateTime.Now || x.LockoutEnd == null).ToList(), "Id", "UserName");
-                ViewData["RoleId"] = new SelectList(_roleManager.Roles.ToList(), "Name", "Name");
+                var user = _db.ApplicationUsers.Find(roleUser.UserId);
+                var isExist = await _userManager.IsInRoleAsync(user, roleUser.Role);
+                if (isExist)
+                {
+                    ViewBag.msg = "This Role is already assigned for this User";
+                    ViewData["UserId"] = new SelectList(_db.ApplicationUsers.Where(x => x.LockoutEnd < DateTime.Now || x.LockoutEnd == null).ToList(), "Id", "UserName");
+                    ViewData["RoleId"] = new SelectList(_roleManager.Roles.ToList(), "Name", "Name");
 
-                return View();
-            }
-            var role = await _userManager.AddToRoleAsync(user, roleUser.Role);
-            if (role.Succeeded)
-            {
-                TempData["save"] = "Role has been Assigned";
-                return RedirectToAction(nameof(Index));
+                    return View();
+                }
+
+                var roles = _userManager.GetRolesAsync(user).Result;
+                foreach (var r in roles)
+                {
+                    await _userManager.RemoveFromRoleAsync(user, r);
+                }
+                var role = await _userManager.AddToRoleAsync(user, roleUser.Role);
+                if (role.Succeeded)
+                {
+                    TempData["save"] = "Role has been Assigned";
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View();
         }

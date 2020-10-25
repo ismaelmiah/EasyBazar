@@ -59,13 +59,13 @@
                             </p>
                         </div>
                         @*<ul>
-                <li><a href="#" class="active">$0.00 - $50.00</a></li>
-                <li><a href="#">$50.00 - $100.00</a></li>
-                <li><a href="#">$100.00 - $150.00</a></li>
-                <li><a href="#">$150.00 - $200.00</a></li>
-                <li><a href="#">$200.00 - 250.00</a></li>
-                <li><a href="#">250.00+</a></li>
-                </ul>*@
+                            <li><a href="#" class="active">$0.00 - $50.00</a></li>
+                            <li><a href="#">$50.00 - $100.00</a></li>
+                            <li><a href="#">$100.00 - $150.00</a></li>
+                            <li><a href="#">$150.00 - $200.00</a></li>
+                            <li><a href="#">$200.00 - 250.00</a></li>
+                            <li><a href="#">250.00+</a></li>
+                            </ul>*@
                     </div><!-- /.widget -->
                     <div class="widget widget_tag" style="margin-left: 100px">
                         <h5 class="widget-title">
@@ -96,12 +96,12 @@
                         Html.RenderPartial("FilterIndex", filtermodel);
                     }
                 </div>
-                
+
                 @*<script>
-                    $.get('@Url.Action("FilterIndex","Shop",filtermodel)', function (content) {
-                        $("#productsdiv").html(content);
-                    });
-                </script>*@
+                        $.get('@Url.Action("FilterIndex","Shop",filtermodel)', function (content) {
+                            $("#productsdiv").html(content);
+                        });
+                    </script>*@
             </div><!-- /.col-md-12 -->
         </div><!-- /.row -->
     </div><!-- /.container -->
@@ -114,7 +114,7 @@
         $(document).ready(function () {
             $(".slidebar-shop").hide();
             $(".show-filter").click(function () {
-                $(".slidebar-shop").toggle(1000);
+                $(".slidebar-shop").show();
             });
             $(".btn-close").click(function () {
                 $(".slidebar-shop").hide(1000);
