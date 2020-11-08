@@ -17,6 +17,9 @@
 - Clone Repository To Local Computer
 - Open Project in Visual Studio
 - Edit "DefaultConnection" to point to preferred database
-- Download Database and Restore as backup on SQL Management Studio.
+- First Registered And Make User Admin from Database.
+- /Identity/Account/Login for login
+- /Identity/Account/Register for Registration
+- /Admin/Category for Adding Category.
+- After Added 8 Category. Project will shows as it is
 - When completed, Run Website in Visual Studio
-- Login as admin user using: Username: admin@localhost.com | Password: P@ssword1
